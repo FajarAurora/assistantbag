@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Assistant</string>
+
+    <!--Nav menu-->
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!--Menu-->
+    <string name="active">Tag Aktif</string>
+    <string name="catalog">Daftar</string>
+    <string name="schedule">Jadwal</string>
+    <string name="wifi">Jaringan</string>
+    <string name="about_us">Tentang Kami</string>
+
+    <!--Action-->
+    <string name="add">Tambah</string>
+    <string name="edit">Ubah</string>
+    <string name="update">Perbarui</string>
+    <string name="delete">Hapus</string>
+
+    <!--Crescento-->
+    <string name="crescento_header">Terdapat</string>
+    <string name="crescento_background">Crescento</string>
+    <string name="menu_option">Menu</string>
+    <string name="dots_option">⋮</string>
+    <string name="crescento_object">Benda</string>
+    <string name="zero">0</string>
+    <string name="crescento_backpack_icon">Backpack icon</string>
+    <string name="crescento_footer">Di dalam tas</string>
+    <string name="see_schedule">Lihat Jadwal</string>
+    <string name="default_tag_name">Kamus Ingris</string>
+    <string name="default_tag_id">6F0086534A</string>
+    <string name="default_tag_time">9:42:10</string>
+    <string name="default_tag_date">30-05-2018</string>
+    <string name="status_in">Status In</string>
+    <string name="status_out">Status Out</string>
+    <string name="digit_option">⋮</string>
+
+    <!--No Data-->
+    <string name="no_data">Data kosong \nLakukan pemindaian untuk menambah data.</string>
+    <string name="no_schedule">Tidak ada jadwal</string>
+    <string name="plus">+</string>
+
+    <!--Day-->
+    <string name="mon">Senin</string>
+    <string name="tue">Selasa</string>
+    <string name="wed">Rabu</string>
+    <string name="thu">Kamis</string>
+    <string name="fri">Jumat</string>
+    <string name="sat">Sabtu</string>
+    <string name="sun">Minggu</string>
+
+    <!--ActionBar-->
+    <string name="unselected">Pilih benda</string>
+    <string name="zero_selected">0 benda terpilih</string>
+    <string name="selected">benda terpilih</string>
+
+    <!--Toast-->
+    <string name="schedule_deleted">Item berhasil dihapus dari jadwal</string>
+    <string name="tag_updated">Data tag berhasil diperbarui</string>
+    <string name="tag_deleted">Tag berhasil dihapus</string>
+
+    <!--Builder-->
+    <string name="update_tag">Ubah nama tag</string>
+
+    <!--Error-->
+    <string name="error_empty_field">Kolom tidak boleh kosong</string>
+
+
+</resources>

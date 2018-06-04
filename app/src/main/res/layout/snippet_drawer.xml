@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.NavigationView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:paddingLeft="22dp">
+
+
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/profile_3" />
+
+
+            <customfonts.TextView_Lato_Medium
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="bang ipul"
+                android:gravity="center"
+                android:layout_marginTop="32dp"
+                android:textAllCaps="true"
+                android:textColor="#495C67"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <!--<ImageView-->
+                    <!--android:layout_width="14dp"-->
+                    <!--android:layout_height="14dp"-->
+                    <!--android:src="@drawable/pin"/>-->
+
+                <customfonts.TextView_Lato_Medium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#495C67"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:text="bangipul@gmail.com"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="69dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_today"/>
+
+            <customfonts.TextView_Lato_Medium
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jadwal"
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="36dp"
+
+                android:textColor="#495C67"
+                android:layout_weight="2"/>
+    </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_archive"/>
+
+                <customfonts.TextView_Lato_Medium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daftar"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#495C67"
+                    android:layout_marginLeft="36dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_wifi"/>
+
+                <customfonts.TextView_Lato_Medium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jaringan"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#495C67"
+                    android:layout_marginLeft="36dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_info_outline"/>
+
+                <customfonts.TextView_Lato_Medium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tentang Kami"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#495C67"
+                    android:layout_marginLeft="36dp"/>
+            </LinearLayout>
+
+<!--Another menu-->
+
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="40dp">-->
+
+
+            <!--<customfonts.TextView_Lato-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Messages"-->
+                <!--android:textSize="14sp"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#495C67"/>-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="17dp"-->
+                    <!--android:layout_height="17dp"-->
+                    <!--android:src="@drawable/five"-->
+                    <!--android:layout_marginRight="50dp"-->
+                    <!--android:layout_gravity="right"/>-->
+
+
+
+            <!--</FrameLayout>-->
+
+            <!--<customfonts.TextView_Lato-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Friends"-->
+                <!--android:textSize="14sp"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginTop="40dp"-->
+                <!--android:textColor="#495C67"/>-->
+
+
+            <!--<customfonts.TextView_Lato-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Settings"-->
+                <!--android:textSize="14sp"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginTop="40dp"-->
+                <!--android:textColor="#495C67"/>-->
+
+
+
+
+    </LinearLayout>
+
+</android.support.design.widget.NavigationView>

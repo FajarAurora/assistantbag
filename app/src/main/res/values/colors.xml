@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Teamview-->
+    <color name="colorPrimary">#28a7fc</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorGray">#495C67</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorOrange">#F68159</color>
+    <color name="colorLightGray">#a6abae</color>
+    <color name="colorBackroundWhite">#f0f2ea</color>
+
+
+    <!--AquaDry-->
+    <color name="divider">#efefef</color>
+
+    <color name="white">#ffffff</color>
+    <color name="orange">#EF6C00</color>
+    <color name="dark_orange">#E65100</color>
+    <color name="text_color">#272928</color>
+    <!--<color name="text_color">#292f33</color>-->
+    <color name="black">#000000</color>
+    <color name="light_text">#c3c4c4</color>
+    <color name="medium_text">#7e7e7e</color>
+
+    <!--<color name="medium_text">#898989</color>-->
+    <color name="light_grey">#ECEFF1</color>
+    <color name="transparent">#80000000</color>
+    <color name="green">#3f7600</color>
+
+    <color name="light_white">#d5d5d5</color>
+    <color name="dull_white">#F5F5F5</color>
+
+    <color name="bottom_bar_text_color">#6b6d7b</color>
+    <color name="red">#B71C1C</color>
+
+    <color name="tab_select_txt">#ad9614</color>
+    <color name="tab_unselect_txt">#000000</color>
+    <color name="bottom_bar">#4c4c4c</color>
+    <color name="dark_white">#efeeec</color>
+    <color name="yellow">#FFC107</color>
+    <color name="light_blue">#d7effe</color>
+    <color name="dark_blue">#28a7fc</color>
+    <color name="selected_tab_color">#0096ff</color>
+    <color name="unselected_tab">#acacac</color>
+    <color name="dark_text">#4d4d4d</color>
+
+    <color name="material_red">#f44336</color>
+    <color name="material_green">#4caf50</color>
+
+</resources>
