@@ -34,6 +34,7 @@ import com.wizdanapril.assistantbag.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ActiveFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -168,10 +169,9 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 activeList.clear();
-                activeAdapter.notifyDataSetChanged();
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Catalog catalog = children.getValue(Catalog.class);
-                    if (catalog != null && catalog.status.equals("in")) {
+                    if (catalog != null && Objects.equals(catalog.status, "in")) {
                         activeList.add(catalog);
                         activeAdapter.notifyDataSetChanged();
                         tagCounter.setText(String.valueOf(activeList.size()));

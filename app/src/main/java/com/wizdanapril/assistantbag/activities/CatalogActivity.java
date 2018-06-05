@@ -79,7 +79,7 @@ public class CatalogActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Catalog catalog = dataSnapshot.getValue(Catalog.class);
                 catalogList.add(catalog);
-                Log.d("LIST", String.valueOf(catalogList.size()));
+//                Log.d("LIST", String.valueOf(catalogList.size()));
                 catalogAdapter.notifyDataSetChanged();
                 checkIfEmpty();
             }

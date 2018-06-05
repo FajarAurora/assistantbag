@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "com.wizdanapril.tagaktif"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
