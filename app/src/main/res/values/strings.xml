@@ -40,6 +40,7 @@
     <string name="no_data">Data kosong \nLakukan pemindaian untuk menambah data.</string>
     <string name="no_schedule">Tidak ada jadwal</string>
     <string name="plus">+</string>
+    <string name="no_name">(no-name)</string>
 
     <!--Day-->
     <string name="mon">Senin</string>

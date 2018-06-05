@@ -1,7 +1,6 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,17 +50,18 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
 
         for (Map.Entry<String, Boolean> entry : history.reference.entrySet()) {
             String key = entry.getKey();
-
             holder.tagId.setText(key);
 
             catalogReference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Catalog catalog = dataSnapshot.getValue(Catalog.class);
-
-                    String name = catalog != null ? catalog.name : null;
-
-                    holder.tagName.setText(name);
+                    if (dataSnapshot.exists()) {
+                        Catalog catalog = dataSnapshot.getValue(Catalog.class);
+                        String name = catalog != null ? catalog.name : null;
+                        holder.tagName.setText(name);
+                    } else {
+                        holder.tagName.setText(context.getResources().getString(R.string.no_name));
+                    }
                 }
 
                 @Override
@@ -69,6 +69,7 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
 
                 }
             });
+
         }
 
         switch (history.status) {
@@ -77,18 +78,14 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
                 holder.statusOut.setVisibility(View.INVISIBLE);
                 holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_green));
                 holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_green));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_green));
-                }
+                holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_green));
                 break;
             case "out":
                 holder.statusIn.setVisibility(View.INVISIBLE);
                 holder.statusOut.setVisibility(View.VISIBLE);
                 holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_red));
                 holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_red));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_red));
-                }
+                holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_red));
                 break;
             default:
                 break;
