@@ -36,8 +36,7 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
     private static final String ARG_PAGE = "arg_page";
     private String day[] = new String[] {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
-    private LinkedMap<String, Boolean> scheduleList;
-    private LinkedMap<String, Boolean> selectionList;
+    private LinkedMap<String, Boolean> scheduleList, selectionList;
 
     private DatabaseReference scheduleReference = FirebaseDatabase.getInstance()
             .getReference(Constant.USER).child(Constant.SCHEDULE);
@@ -45,8 +44,7 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
     private ScheduleAdapter scheduleAdapter;
 
     private RecyclerView recyclerView;
-    private TextView emptyText;
-    private TextView plusIcon;
+    private TextView emptyText, plusIcon;
     private ImageView deleteIcon;
 
     public boolean isInActionMode = false;

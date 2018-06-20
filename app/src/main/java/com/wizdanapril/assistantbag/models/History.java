@@ -4,9 +4,7 @@ import java.util.Map;
 
 public class History {
 
-    public String status;
-    public String date;
-    public String time;
+    public String status, date, time;
     public Map<String, Boolean> reference;
 
     public History() {

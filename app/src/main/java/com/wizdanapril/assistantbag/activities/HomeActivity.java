@@ -17,7 +17,7 @@ import com.wizdanapril.assistantbag.fragments.HistoryFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private int[] mTabsIcons = {
+    private int[] tabsIcons = {
             R.drawable.ic_home,
             R.drawable.history
     };
@@ -29,9 +29,9 @@ public class HomeActivity extends AppCompatActivity {
 
         // Setup the viewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        PagerAdapter PagerAdapter = new PagerAdapter(getSupportFragmentManager());
         if (viewPager != null)
-            viewPager.setAdapter(pagerAdapter);
+            viewPager.setAdapter(PagerAdapter);
 
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         if (mTabLayout != null) {
@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
             for (int i = 0; i < mTabLayout.getTabCount(); i++) {
                 TabLayout.Tab tab = mTabLayout.getTabAt(i);
                 if (tab != null)
-                    tab.setCustomView(pagerAdapter.getTabView(i));
+                    tab.setCustomView(PagerAdapter.getTabView(i));
             }
 
             mTabLayout.getTabAt(0).getCustomView().setSelected(true);
@@ -55,13 +55,13 @@ public class HomeActivity extends AppCompatActivity {
 //        drawer.setDrawerLockMode(lockMode);
 //    }
 
-    private class MyPagerAdapter extends FragmentPagerAdapter {
+    private class PagerAdapter extends FragmentPagerAdapter {
 
         public final int PAGE_COUNT = 2;
 
         private final String[] mTabsTitle = {"HomeActivity", "Riwayat"};
 
-        public MyPagerAdapter(FragmentManager fm) {
+        public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
             // Inflate the custom tab
             View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.snippet_custom_tab, null);
             ImageView icon = (ImageView) view.findViewById(R.id.icon);
-            icon.setImageResource(mTabsIcons[position]);
+            icon.setImageResource(tabsIcons[position]);
             return view;
         }
 

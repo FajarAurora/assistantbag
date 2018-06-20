@@ -50,8 +50,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
     private List<Catalog> activeList;
     private ActiveAdapter activeAdapter;
 
-    private TextView emptyText;
-    private TextView tagCounter;
+    private TextView emptyText, tagCounter;
 
     private DatabaseReference catalogReference = FirebaseDatabase.getInstance()
             .getReference(Constant.USER).child(Constant.CATALOG);

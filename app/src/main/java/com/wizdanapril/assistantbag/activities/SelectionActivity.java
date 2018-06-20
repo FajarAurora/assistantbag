@@ -33,8 +33,7 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
     private RecyclerView recyclerView;
     private SelectionAdapter selectionAdapter;
 
-    private List<Catalog> catalogList;
-    private List<Catalog> selectionList;
+    private List<Catalog> catalogList, selectionList;
     private HashMap<String, Boolean> scheduleList;
 
     private DatabaseReference catalogReference = FirebaseDatabase.getInstance()
