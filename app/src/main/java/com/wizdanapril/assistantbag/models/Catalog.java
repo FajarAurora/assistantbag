@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Catalog {
 
-    public String id, name, status, lastReadDate, lastReadTime, lastReadDay;
+    public String id, name, status, lastReadDate, lastReadTime;
     public Map<String, Boolean> schedule;
 
     public Catalog() {
@@ -12,8 +12,7 @@ public class Catalog {
     }
 
     public Catalog(String id, String name, String status, String lastReadDate,
-                   String lastReadTime, String lastReadDay,
-                   Map<String, Boolean> schedule
+                   String lastReadTime, Map<String, Boolean> schedule
     ) {
 
         this.id = id;
@@ -21,7 +20,6 @@ public class Catalog {
         this.status = status;
         this.lastReadDate = lastReadDate;
         this.lastReadTime = lastReadTime;
-        this.lastReadDay = lastReadDay;
         this.schedule = schedule;
 
     }

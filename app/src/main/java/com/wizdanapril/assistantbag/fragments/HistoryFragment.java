@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,11 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.adapters.HistoryAdapter;
 import com.wizdanapril.assistantbag.models.History;
-import com.wizdanapril.assistantbag.utils.Constant;
+import com.wizdanapril.assistantbag.models.Constant;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HistoryFragment extends Fragment {
 
@@ -32,8 +35,7 @@ public class HistoryFragment extends Fragment {
     private List<History> historyList;
     private HistoryAdapter historyAdapter;
 
-    private DatabaseReference historyReference =  FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.HISTORY);
+    private DatabaseReference historyReference, catalogReference;
 
     private TextView emptyText;
 
@@ -53,6 +55,15 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getContext().getSharedPreferences("LoggedAccount", MODE_PRIVATE);
+        String userAccount = preferences.getString("userAccount", "error");
+        String deviceId = preferences.getString("deviceId", "error");
+        historyReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.HISTORY);
+        catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.CATALOG);
+
 //        int mPageNo = getArguments().getInt(ARG_PAGE);
     }
 
@@ -74,7 +85,7 @@ public class HistoryFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        historyAdapter = new HistoryAdapter(historyList, getActivity());
+        historyAdapter = new HistoryAdapter(historyList, getActivity(), catalogReference);
         recyclerView.setAdapter(historyAdapter);
 
         updateList();

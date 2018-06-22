@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.SelectionActivity;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.utils.Constant;
+import com.wizdanapril.assistantbag.models.Constant;
 
 import java.util.List;
 
@@ -21,12 +22,18 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
     private List<Catalog> catalogList;
     private String day;
     private SelectionActivity selectionActivity;
+    private DatabaseReference scheduleReference, catalogReference;
+
 
     public SelectionAdapter(List<Catalog> catalogList, SelectionActivity selectionActivity,
-                            String day) {
+                            String day,
+                            DatabaseReference scheduleReference,
+                            DatabaseReference catalogReference) {
         this.catalogList = catalogList;
         this.selectionActivity = selectionActivity;
         this.day = day;
+        this.scheduleReference = scheduleReference;
+        this.catalogReference = catalogReference;
     }
 
     @Override
@@ -86,10 +93,8 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
     public void updateAdapter(List<Catalog> selectionList) {
 
         for (Catalog catalog : selectionList) {
-            FirebaseDatabase.getInstance().getReference(Constant.USER).child(Constant.CATALOG)
-                    .child(catalog.id).child("schedule").child(day).setValue(true);
-            FirebaseDatabase.getInstance().getReference(Constant.USER).child(Constant.SCHEDULE)
-                    .child(day).child("member").child(catalog.id).setValue(true);
+            catalogReference.child(catalog.id).child("schedule").child(day).setValue(true);
+            scheduleReference.child(day).child("member").child(catalog.id).setValue(true);
         }
         notifyDataSetChanged();
     }

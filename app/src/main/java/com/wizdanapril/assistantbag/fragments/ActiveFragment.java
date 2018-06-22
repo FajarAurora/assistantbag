@@ -2,10 +2,9 @@ package com.wizdanapril.assistantbag.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,24 +25,30 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.CatalogActivity;
+import com.wizdanapril.assistantbag.activities.HomeActivity;
 import com.wizdanapril.assistantbag.activities.ScheduleActivity;
 import com.wizdanapril.assistantbag.adapters.ActiveAdapter;
+import com.wizdanapril.assistantbag.models.Constant;
+import com.wizdanapril.assistantbag.utils.CustomViewPager;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ActiveFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private View view;
+    private HomeActivity homeActivity;
 
+    private CustomViewPager viewPager;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    public DrawerLayout drawer;
-    public NavigationView navigationView;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
 
     private RecyclerView recyclerView;
     private List<Catalog> activeList;
@@ -52,9 +56,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
 
     private TextView emptyText, tagCounter;
 
-    private DatabaseReference catalogReference = FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.CATALOG);
-
+    private DatabaseReference catalogReference;
     public ActiveFragment() {
         // Required empty public constructor
     }
@@ -70,6 +72,14 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getContext().getSharedPreferences("LoggedAccount", MODE_PRIVATE);
+        String userAccount = preferences.getString("userAccount", "error");
+        String deviceId = preferences.getString("deviceId", "error");
+        catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.CATALOG);
+
+
         setHasOptionsMenu(true);
         updateList();
 //        int mPageNo = getArguments().getInt(ARG_PAGE);
@@ -79,34 +89,38 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_active, container, false);
-
+        homeActivity = (HomeActivity) getActivity();
         // Setting up nav menu
-        drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) view.findViewById(R.id.nav_view);
+//        drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
+//        navigationView = (NavigationView) view.findViewById(R.id.nav_view);
+        viewPager = homeActivity.viewPager;
+        drawer = homeActivity.drawer;
+        navigationView = homeActivity.navigationView;
         doDrawerAction();
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawer, R.string.openDrawer, R.string.closeDrawer) {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-
-        // Setting the actionbarToggle to drawer layout
-        drawer.addDrawerListener(actionBarDrawerToggle);
-
-        // Calling sync state so menu icon will show up
-        actionBarDrawerToggle.syncState();
-        actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-
-        getActivity().invalidateOptionsMenu();
+//        actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawer, R.string.openDrawer, R.string.closeDrawer) {
+//            @Override
+//            public void onDrawerClosed(View drawerView) {
+//                super.onDrawerClosed(drawerView);
+//            }
+//
+//            @Override
+//            public void onDrawerOpened(View drawerView) {
+//                super.onDrawerOpened(drawerView);
+//            }
+//        };
+//
+//        // Setting the actionbarToggle to drawer layout
+//        drawer.addDrawerListener(actionBarDrawerToggle);
+//        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//        // Calling sync state so menu icon will show up
+//        actionBarDrawerToggle.syncState();
+//        actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+//
+//        getActivity().invalidateOptionsMenu();
 
         // Setting the crescento button address
         TextView toCatalog = (TextView) view.findViewById(R.id.to_catalog);
@@ -150,14 +164,9 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
         view.findViewById(R.id.nav_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (drawer.isDrawerOpen(navigationView)) {
-                    drawer.closeDrawer(navigationView);
-//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-//                    ((DrawerLocker) getActivity()).setDrawerEnabled(true);
-                } else {
+
+                if (!drawer.isDrawerOpen(navigationView)) {
                     drawer.openDrawer(navigationView);
-//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-//                    ((DrawerLocker) getActivity()).setDrawerEnabled(false);
                 }
             }
         });
@@ -185,7 +194,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
 
             }
 
-//                catalogReference.addChildEventListener(new ChildEventListener() {
+//                CATALOG.addChildEventListener(new ChildEventListener() {
 //            @Override
 //            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 //                Catalog catalog = dataSnapshot.getValue(Catalog.class);
@@ -270,25 +279,25 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
 
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        actionBarDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
-        actionBarDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // toggle nav drawer on selecting action bar app icon/title
-        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        // Sync the toggle state after onRestoreInstanceState has occurred.
+//        actionBarDrawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        // Pass any configuration change to the drawer toggles
+//        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // toggle nav drawer on selecting action bar app icon/title
+//        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

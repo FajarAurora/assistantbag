@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,29 +19,30 @@ import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.fragments.ScheduleFragment;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.utils.Constant;
+import com.wizdanapril.assistantbag.models.Constant;
 import com.wizdanapril.assistantbag.utils.LinkedMap;
 
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
 
     private LinkedMap<String, Boolean> scheduleList;
     private ScheduleFragment scheduleFragment;
     private String day;
-
-    private DatabaseReference catalogReference = FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.CATALOG);
-
-    private DatabaseReference scheduleReference = FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.SCHEDULE);
+    private DatabaseReference scheduleReference, catalogReference;
 
     public ScheduleAdapter(LinkedMap<String, Boolean> scheduleList,
                            ScheduleFragment scheduleFragment,
-                           String day) {
+                           String day,
+                           DatabaseReference scheduleReference,
+                           DatabaseReference catalogReference) {
         this.scheduleList = scheduleList;
         this.scheduleFragment = scheduleFragment;
         this.day = day;
+        this.scheduleReference = scheduleReference;
+        this.catalogReference = catalogReference;
     }
 
     @Override

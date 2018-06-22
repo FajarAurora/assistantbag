@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
@@ -9,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.adapters.CatalogAdapter;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.utils.Constant;
+import com.wizdanapril.assistantbag.models.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,7 @@ public class CatalogActivity extends AppCompatActivity {
     private List<Catalog> catalogList;
     private CatalogAdapter catalogAdapter;
 
-    private DatabaseReference catalogReference = FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.CATALOG);
+    private DatabaseReference catalogReference;
 
     private TextView emptyText;
 
@@ -46,6 +45,12 @@ public class CatalogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+
+        SharedPreferences preferences = this.getSharedPreferences("LoggedAccount", MODE_PRIVATE);
+        String userAccount = preferences.getString("userAccount", "error");
+        String deviceId = preferences.getString("deviceId", "error");
+        catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.CATALOG);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle(R.string.catalog);
@@ -180,7 +185,7 @@ public class CatalogActivity extends AppCompatActivity {
 //
 //        newUser.put(catalog.id, catalogModelValue);
 //
-//        catalogReference.updateChildren(newUser);
+//        CATALOG.updateChildren(newUser);
 
         catalogReference.child(catalog.id).child("name").setValue(newName);
 

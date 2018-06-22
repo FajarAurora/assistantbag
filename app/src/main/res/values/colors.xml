@@ -9,7 +9,6 @@
     <color name="colorLightGray">#a6abae</color>
     <color name="colorBackroundWhite">#f0f2ea</color>
 
-
     <!--AquaDry-->
     <color name="divider">#efefef</color>
 
@@ -46,5 +45,7 @@
 
     <color name="material_red">#f44336</color>
     <color name="material_green">#4caf50</color>
+    <color name="custom_blue">#0589e1</color>
+    <color name="custom_gray">#495C67</color>
 
 </resources>

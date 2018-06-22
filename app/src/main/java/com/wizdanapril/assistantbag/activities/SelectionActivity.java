@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.adapters.SelectionAdapter;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.utils.Constant;
+import com.wizdanapril.assistantbag.models.Constant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,8 +37,7 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
     private List<Catalog> catalogList, selectionList;
     private HashMap<String, Boolean> scheduleList;
 
-    private DatabaseReference catalogReference = FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.CATALOG);
+    private DatabaseReference catalogReference, scheduleReference;
 
     private TextView emptyText;
     private TextView unselectedText;
@@ -51,6 +51,14 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
+
+        SharedPreferences preferences = this.getSharedPreferences("LoggedAccount", MODE_PRIVATE);
+        String userAccount = preferences.getString("userAccount", "error");
+        String deviceId = preferences.getString("deviceId", "error");
+        scheduleReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.SCHEDULE);
+        catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.CATALOG);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -80,7 +88,7 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
 
         recyclerView.setLayoutManager(layoutManager);
 
-        selectionAdapter = new SelectionAdapter(catalogList, this, day);
+        selectionAdapter = new SelectionAdapter(catalogList, this, day, scheduleReference, catalogReference);
         recyclerView.setAdapter(selectionAdapter);
 
         updateList();

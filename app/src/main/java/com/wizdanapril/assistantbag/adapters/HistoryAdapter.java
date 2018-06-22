@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,30 +16,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.models.Catalog;
+import com.wizdanapril.assistantbag.models.Constant;
 import com.wizdanapril.assistantbag.models.History;
-import com.wizdanapril.assistantbag.utils.Constant;
 
 import java.util.List;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHolder>  {
 
     private List<History> historyList;
     private Context context;
 
-    private DatabaseReference catalogReference = FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.CATALOG);
+    private DatabaseReference catalogReference;
 
-    public HistoryAdapter(List<History> historyList, Context context) {
+
+    public HistoryAdapter(List<History> historyList, Context context, DatabaseReference catalogReference) {
         this.historyList = historyList;
         this.context = context;
-
+        this.catalogReference = catalogReference;
     }
 
     @Override
     public HistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new HistoryAdapter.ViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_history, parent, false));
+
     }
 
     @Override

@@ -11,6 +11,7 @@
     <string name="schedule">Jadwal</string>
     <string name="wifi">Jaringan</string>
     <string name="about_us">Tentang Kami</string>
+    <string name="logout">Keluar</string>
 
     <!--Action-->
     <string name="add">Tambah</string>
@@ -66,6 +67,22 @@
 
     <!--Error-->
     <string name="error_empty_field">Kolom tidak boleh kosong</string>
+    <string name="error_empty_email">Email tidak boleh kosong!</string>
+    <string name="error_empty_password">Password tidak boleh kosong!</string>
+    <string name="error_empty_device">ID Alat tidak boleh kosong!</string>
+    <string name="error_min_password">Password terlalu pendek, masukkan setidaknya 6 karakter!</string>
+    <string name="error_auth_failed">Gagal masuk, periksa kembali email dan password!</string>
+    <string name="error_empty_registered_email">Masukkan email Anda yang telah terdaftar</string>
+    <string name="error_sent_instruction">Kesalahan, gagal mengirim instruksi pada email Anda!</string>
 
+    <!--Success-->
+    <string name="success_signup">Akun berhasil terdaftar.</string>
+    <string name="success_sent_instruction">Kami telah mengirim instruksi untuk mengatur ulang password Anda!</string>
 
+    <!--Login-->
+    <string name="bt_back"><![CDATA[<< Kembali]]></string>
+    <string name="login">Masuk</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="device">ID Alat</string>
 </resources>

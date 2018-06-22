@@ -23,17 +23,18 @@
                 android:layout_height="110dp"
                 android:layout_marginTop="25dp"
                 android:layout_gravity="center"
-                android:src="@drawable/profile_3" />
+                android:src="@drawable/profile_3"
+                android:id="@+id/drawer_user_image"/>
 
 
             <customfonts.TextView_Lato_Medium
+                android:id="@+id/drawer_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="bang ipul"
                 android:gravity="center"
                 android:layout_marginTop="32dp"
                 android:textAllCaps="true"
-                android:textColor="#495C67"/>
+                android:textColor="@color/custom_gray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,10 +51,10 @@
                 <customfonts.TextView_Lato_Medium
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#495C67"
+                    android:textColor="@color/custom_gray"
                     android:textSize="12sp"
                     android:layout_gravity="center"
-                    android:text="bangipul@gmail.com"/>
+                    android:id="@+id/drawer_user_email"/>
 
 
             </LinearLayout>
@@ -63,7 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_marginTop="69dp">
+        android:layout_marginTop="69dp"
+                android:id="@+id/drawer_menu_schedule">
 
         <ImageView
             android:layout_width="24dp"
@@ -79,7 +81,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="36dp"
 
-                android:textColor="#495C67"
+                android:textColor="@color/custom_gray"
                 android:layout_weight="2"/>
     </LinearLayout>
 
@@ -88,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="40dp"
+                android:id="@+id/drawer_menu_catalog">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -102,7 +105,7 @@
                     android:text="Daftar"
                     android:textSize="14sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="#495C67"
+                    android:textColor="@color/custom_gray"
                     android:layout_marginLeft="36dp"/>
             </LinearLayout>
 
@@ -111,7 +114,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="40dp"
+                android:id="@+id/drawer_menu_network">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -125,17 +129,18 @@
                     android:text="Jaringan"
                     android:textSize="14sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="#495C67"
+                    android:textColor="@color/custom_gray"
                     android:layout_marginLeft="36dp"/>
 
             </LinearLayout>
-
+            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="40dp"
+                android:id="@+id/drawer_menu_copyright">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -149,8 +154,42 @@
                     android:text="Tentang Kami"
                     android:textSize="14sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="#495C67"
+                    android:textColor="@color/custom_gray"
                     android:layout_marginLeft="36dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/custom_gray"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="22dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:id="@+id/drawer_menu_logout">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_logout"/>
+
+                <customfonts.TextView_Lato_Medium
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/logout"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/custom_gray"
+                    android:layout_marginLeft="36dp"/>
+
             </LinearLayout>
 
 <!--Another menu-->
@@ -167,7 +206,7 @@
                 <!--android:text="Messages"-->
                 <!--android:textSize="14sp"-->
                 <!--android:gravity="center"-->
-                <!--android:textColor="#495C67"/>-->
+                <!--android:textColor="@color/custom_gray"/>-->
 
                 <!--<ImageView-->
                     <!--android:layout_width="17dp"-->
@@ -187,7 +226,7 @@
                 <!--android:textSize="14sp"-->
                 <!--android:gravity="center"-->
                 <!--android:layout_marginTop="40dp"-->
-                <!--android:textColor="#495C67"/>-->
+                <!--android:textColor="@color/custom_gray"/>-->
 
 
             <!--<customfonts.TextView_Lato-->
@@ -197,7 +236,7 @@
                 <!--android:textSize="14sp"-->
                 <!--android:gravity="center"-->
                 <!--android:layout_marginTop="40dp"-->
-                <!--android:textColor="#495C67"/>-->
+                <!--android:textColor="@color/custom_gray"/>-->
 
 
 

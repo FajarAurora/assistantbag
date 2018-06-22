@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,24 +23,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.SelectionActivity;
 import com.wizdanapril.assistantbag.adapters.ScheduleAdapter;
+import com.wizdanapril.assistantbag.models.Constant;
 import com.wizdanapril.assistantbag.models.Schedule;
-import com.wizdanapril.assistantbag.utils.Constant;
 import com.wizdanapril.assistantbag.utils.LinkedMap;
 
-import org.w3c.dom.Text;
-
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class ScheduleFragment extends Fragment implements View.OnLongClickListener {
 
     private static final String ARG_PAGE = "arg_page";
-    private String day[] = new String[] {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+    private String day[] = new String[] {"Monday", "Tueesday", "Wednesday", "Thursday",
+            "Friday", "Saturday", "Sunday"};
 
     private LinkedMap<String, Boolean> scheduleList, selectionList;
 
-    private DatabaseReference scheduleReference = FirebaseDatabase.getInstance()
-            .getReference(Constant.USER).child(Constant.SCHEDULE);
+    private DatabaseReference scheduleReference, catalogReference;
 
     private ScheduleAdapter scheduleAdapter;
 
@@ -60,6 +61,19 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getContext().getSharedPreferences("LoggedAccount", MODE_PRIVATE);
+        String userAccount = preferences.getString("userAccount", "error");
+        String deviceId = preferences.getString("deviceId", "error");
+        scheduleReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.SCHEDULE);
+        catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.CATALOG);
     }
 
     @Nullable
@@ -104,7 +118,8 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
 
         recyclerView.setLayoutManager(layoutManager);
 
-        scheduleAdapter = new ScheduleAdapter(scheduleList,this, day[pageNumber]);
+        scheduleAdapter = new ScheduleAdapter(scheduleList,this, day[pageNumber],
+                scheduleReference, catalogReference);
         recyclerView.setAdapter(scheduleAdapter);
 
         updateList(pageNumber);
