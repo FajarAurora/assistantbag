@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SelectionActivity extends AppCompatActivity implements View.OnLongClickListener {
+public class SelectionActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
@@ -40,12 +41,12 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
     private DatabaseReference catalogReference, scheduleReference;
 
     private TextView emptyText;
-    private TextView unselectedText;
+//    private TextView unselectedText;
     private TextView counterText;
 
     private int counter = 0;
 
-    public boolean isInActionMode = false;
+//    public boolean isInActionMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,8 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        toolbar.setTitle(R.string.unselected);
+//        toolbar.setTitle(null);
+//        toolbar.setTitle(R.string.unselected);
         emptyText = (TextView) findViewById(R.id.tv_no_data);
 
         Intent intent = getIntent();
@@ -80,7 +81,7 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
         recyclerView = (RecyclerView) findViewById(R.id.rv_tag);
         recyclerView.setHasFixedSize(true);
 
-        unselectedText = (TextView) findViewById(R.id.tv_unselected);
+//        unselectedText = (TextView) findViewById(R.id.tv_unselected);
         counterText = (TextView) findViewById(R.id.tv_counter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -131,20 +132,26 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_menu_add, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                clearActionMode();
-                selectionAdapter.notifyDataSetChanged();
-                Intent intent = NavUtils.getParentActivityIntent(this);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                NavUtils.navigateUpTo(this, intent);
-//                this.overridePendingTransition(R.anim.exit_current, R.anim.exit_new);
-                break;
+//            case android.R.id.home:
+//                clearActionMode();
+//                selectionAdapter.notifyDataSetChanged();
+//                Intent intent = NavUtils.getParentActivityIntent(this);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                NavUtils.navigateUpTo(this, intent);
+////                this.overridePendingTransition(R.anim.exit_current, R.anim.exit_new);
+//                break;
 
             case R.id.menu_item_add:
-                isInActionMode = false;
+//                isInActionMode = false;
                 selectionAdapter.updateAdapter(selectionList);
                 finish();
         }
@@ -153,30 +160,30 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
 
     @Override
     public void onBackPressed() {
-        if (isInActionMode) {
-            clearActionMode();
-            selectionAdapter.notifyDataSetChanged();
-        } else {
+//        if (isInActionMode) {
+//            clearActionMode();
+//            selectionAdapter.notifyDataSetChanged();
+//        } else {
             super.onBackPressed();
 //            overridePendingTransition(R.anim.exit_current, R.anim.exit_new);
-        }
+//        }
     }
 
-    @Override
-    public boolean onLongClick(View view) {
-        toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.action_menu_add);
-        toolbar.setTitle(null);
-        unselectedText.setVisibility(View.GONE);
-        counterText.setVisibility(View.VISIBLE);
-        isInActionMode = true;
-        selectionAdapter.notifyDataSetChanged();
-
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onLongClick(View view) {
+//        toolbar.getMenu().clear();
+//        toolbar.inflateMenu(R.menu.action_menu_add);
+//        toolbar.setTitle(null);
+//        unselectedText.setVisibility(View.GONE);
+//        counterText.setVisibility(View.VISIBLE);
+//        isInActionMode = true;
+//        selectionAdapter.notifyDataSetChanged();
+//
+//        if(getSupportActionBar() != null){
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
+//        return true;
+//    }
 
     public void prepareSelection(View view, int position) {
         if (((CheckBox) view).isChecked()) {
@@ -203,17 +210,17 @@ public class SelectionActivity extends AppCompatActivity implements View.OnLongC
         }
     }
 
-    public void clearActionMode() {
-        isInActionMode = false;
-        toolbar.getMenu().clear();
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        counterText.setVisibility(View.GONE);
-        unselectedText.setVisibility(View.VISIBLE);
-        counterText.setText(getString(R.string.zero_selected));
-        counter = 0;
-        selectionList.clear();
-    }
+//    public void clearActionMode() {
+//        isInActionMode = false;
+//        toolbar.getMenu().clear();
+//        if(getSupportActionBar() != null){
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
+//        counterText.setVisibility(View.GONE);
+//        unselectedText.setVisibility(View.VISIBLE);
+//        counterText.setText(getString(R.string.zero_selected));
+//        counter = 0;
+//        selectionList.clear();
+//    }
 
 }

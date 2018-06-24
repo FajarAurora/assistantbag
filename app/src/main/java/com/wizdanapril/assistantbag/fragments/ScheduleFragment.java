@@ -1,3 +1,4 @@
+
 package com.wizdanapril.assistantbag.fragments;
 
 import android.content.Intent;
@@ -100,6 +101,7 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
             public void onClick(View view) {
                 isInActionMode = false;
                 scheduleAdapter.removeAdapter(selectionList, getActivity());
+                clearActionMode();
             }
         });
 

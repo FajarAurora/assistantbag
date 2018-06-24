@@ -51,12 +51,12 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
         holder.tagName.setText(catalog.name);
         holder.tagId.setText(catalog.id);
 
-        if (!selectionActivity.isInActionMode) {
-            holder.itemCheckBox.setVisibility(View.INVISIBLE);
-        } else {
+//        if (!selectionActivity.isInActionMode) {
+//            holder.itemCheckBox.setVisibility(View.INVISIBLE);
+//        } else {
             holder.itemCheckBox.setVisibility(View.VISIBLE);
             holder.itemCheckBox.setChecked(false);
-        }
+//        }
     }
 
     @Override
@@ -79,7 +79,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
             itemCheckBox = (CheckBox) itemView.findViewById(R.id.check_box);
             itemCardView = (CardView) itemView.findViewById(R.id.card_view);
 
-            itemCardView.setOnLongClickListener(selectionActivity);
+//            itemCardView.setOnLongClickListener(selectionActivity);
             itemCheckBox.setOnClickListener(this);
 
         }

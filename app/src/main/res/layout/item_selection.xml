@@ -73,8 +73,7 @@
                     android:id="@+id/check_box"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:visibility="invisible"/>
+                    android:layout_gravity="center"/>
 
                     <!--<customfonts.TextView_Lato-->
                         <!--android:id="@+id/tv_digit_option"-->
