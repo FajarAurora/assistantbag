@@ -44,7 +44,7 @@
     <color name="dark_text">#4d4d4d</color>
 
     <color name="material_red">#f44336</color>
-    <color name="material_green">#4caf50</color>
+    <color name="material_light_green">#9ccc65</color>
     <color name="custom_blue">#0589e1</color>
     <color name="custom_gray">#495C67</color>
 

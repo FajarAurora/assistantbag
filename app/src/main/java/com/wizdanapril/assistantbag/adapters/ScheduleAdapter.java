@@ -1,7 +1,7 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,31 +14,32 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
+import com.wizdanapril.assistantbag.activities.ScheduleActivity;
 import com.wizdanapril.assistantbag.fragments.ScheduleFragment;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.models.Constant;
 import com.wizdanapril.assistantbag.utils.LinkedMap;
 
+import java.util.Calendar;
 import java.util.Map;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
 
     private LinkedMap<String, Boolean> scheduleList;
+    private ScheduleActivity scheduleActivity;
     private ScheduleFragment scheduleFragment;
     private String day;
     private DatabaseReference scheduleReference, catalogReference;
 
     public ScheduleAdapter(LinkedMap<String, Boolean> scheduleList,
+                           ScheduleActivity scheduleActivity,
                            ScheduleFragment scheduleFragment,
                            String day,
                            DatabaseReference scheduleReference,
                            DatabaseReference catalogReference) {
         this.scheduleList = scheduleList;
+        this.scheduleActivity = scheduleActivity;
         this.scheduleFragment = scheduleFragment;
         this.day = day;
         this.scheduleReference = scheduleReference;
@@ -61,9 +62,22 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Catalog catalog = dataSnapshot.getValue(Catalog.class);
-                String name = catalog != null ? catalog.name : null;
+                if (catalog != null) {
+                    String name = catalog.name;
+                    holder.tagName.setText(name);
+//                holder.tagName.setText(holder.currentDayString)
 
-                holder.tagName.setText(name);
+                    if (day.equals(holder.currentDayString) && catalog.status.equals("in")) {
+                        holder.itemCardView.setBackgroundColor(scheduleActivity
+                                .getResources().getColor(R.color.material_light_green));
+                        holder.tagId.setBackground(scheduleActivity
+                                .getResources().getDrawable(R.drawable.roun_rect_lightgreen));
+                        holder.tagId.setTextColor(Color.WHITE);
+                        holder.tagName.setTextColor(Color.WHITE);
+                    }
+
+                }
+
             }
 
             @Override
@@ -86,12 +100,16 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         return scheduleList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tagName;
         TextView tagId;
         CheckBox itemCheckBox;
         CardView itemCardView;
+
+        Calendar calendar = Calendar.getInstance();
+        int currentDayInt = calendar.get(Calendar.DAY_OF_WEEK);
+        String currentDayString;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -103,6 +121,30 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
             itemCardView.setOnLongClickListener(scheduleFragment);
             itemCheckBox.setOnClickListener(this);
+
+            // Incorrect DAY_OF_WEEK, need + 1
+            switch (currentDayInt) {
+                case Calendar.SUNDAY:
+                    currentDayString = "monday";
+
+                case Calendar.MONDAY:
+                    currentDayString = "tuesday";
+
+                case Calendar.TUESDAY:
+                    currentDayString = "wednesday";
+
+                case Calendar.WEDNESDAY:
+                    currentDayString = "thursday";
+
+                case Calendar.THURSDAY:
+                    currentDayString = "friday";
+
+                case Calendar.FRIDAY:
+                    currentDayString = "saturday";
+
+                case Calendar.SATURDAY:
+                    currentDayString = "sunday";
+            }
 
         }
 

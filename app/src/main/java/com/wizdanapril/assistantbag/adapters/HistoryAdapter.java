@@ -1,7 +1,6 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +11,13 @@ import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.models.Constant;
 import com.wizdanapril.assistantbag.models.History;
 
 import java.util.List;
 import java.util.Map;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHolder>  {
 
@@ -80,8 +75,8 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
             case "in":
                 holder.statusIn.setVisibility(View.VISIBLE);
                 holder.statusOut.setVisibility(View.INVISIBLE);
-                holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_green));
-                holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_green));
+                holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_light_green));
+                holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_light_green));
                 holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_green));
                 break;
             case "out":

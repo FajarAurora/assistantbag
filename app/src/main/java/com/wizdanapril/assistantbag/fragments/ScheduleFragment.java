@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
+import com.wizdanapril.assistantbag.activities.ScheduleActivity;
 import com.wizdanapril.assistantbag.activities.SelectionActivity;
 import com.wizdanapril.assistantbag.adapters.ScheduleAdapter;
 import com.wizdanapril.assistantbag.models.Constant;
@@ -35,8 +36,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class ScheduleFragment extends Fragment implements View.OnLongClickListener {
 
     private static final String ARG_PAGE = "arg_page";
-    private String day[] = new String[] {"Monday", "Tueesday", "Wednesday", "Thursday",
-            "Friday", "Saturday", "Sunday"};
+    private String day[] = new String[] {"monday", "tuesday", "wednesday", "thursday",
+            "friday", "saturday", "sunday"};
 
     private LinkedMap<String, Boolean> scheduleList, selectionList;
 
@@ -118,8 +119,8 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
 
         recyclerView.setLayoutManager(layoutManager);
 
-        scheduleAdapter = new ScheduleAdapter(scheduleList,this, day[pageNumber],
-                scheduleReference, catalogReference);
+        scheduleAdapter = new ScheduleAdapter(scheduleList, (ScheduleActivity) getContext(),
+                this, day[pageNumber], scheduleReference, catalogReference);
         recyclerView.setAdapter(scheduleAdapter);
 
         updateList(pageNumber);
