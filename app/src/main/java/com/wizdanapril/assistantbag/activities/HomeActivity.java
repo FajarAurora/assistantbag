@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -28,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.fragments.ActiveFragment;
 import com.wizdanapril.assistantbag.fragments.HistoryFragment;
-import com.wizdanapril.assistantbag.models.Catalog;
 import com.wizdanapril.assistantbag.models.Constant;
 import com.wizdanapril.assistantbag.models.User;
 import com.wizdanapril.assistantbag.utils.CustomViewPager;
@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     };
 
     public CustomViewPager viewPager;
+    private FloatingActionButton speechButton;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     public DrawerLayout drawer;
     public NavigationView navigationView;
@@ -167,6 +168,16 @@ public class HomeActivity extends AppCompatActivity {
 
             mTabLayout.getTabAt(0).getCustomView().setSelected(true);
         }
+
+        // Speech Recognition
+        speechButton = (FloatingActionButton) findViewById(R.id.fab_speech_recognition);
+//        speechButton.bringToFront();
+        speechButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, SpeechRecognitionActivity.class));
+            }
+        });
     }
 
 //    @Override

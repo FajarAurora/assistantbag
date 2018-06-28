@@ -85,4 +85,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="device">ID Alat</string>
+
+    <!--Speech Recognition-->
+    <string name="speech_recognition">Masukkan Perintah Suara</string>
 </resources>

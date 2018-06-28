@@ -21,7 +21,10 @@ import com.wizdanapril.assistantbag.fragments.ScheduleFragment;
 import com.wizdanapril.assistantbag.models.Catalog;
 import com.wizdanapril.assistantbag.utils.LinkedMap;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
@@ -65,7 +68,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                 if (catalog != null) {
                     String name = catalog.name;
                     holder.tagName.setText(name);
-//                holder.tagName.setText(holder.currentDayString)
+//                holder.tagName.setText(holder.currentDayString);
 
                     if (day.equals(holder.currentDayString) && catalog.status.equals("in")) {
                         holder.itemCardView.setBackgroundColor(scheduleActivity
@@ -108,8 +111,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         CardView itemCardView;
 
         Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
         int currentDayInt = calendar.get(Calendar.DAY_OF_WEEK);
-        String currentDayString;
+        String currentDayString = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime())).toLowerCase();
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -123,28 +127,28 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             itemCheckBox.setOnClickListener(this);
 
             // Incorrect DAY_OF_WEEK, need + 1
-            switch (currentDayInt) {
-                case Calendar.SUNDAY:
-                    currentDayString = "monday";
-
-                case Calendar.MONDAY:
-                    currentDayString = "tuesday";
-
-                case Calendar.TUESDAY:
-                    currentDayString = "wednesday";
-
-                case Calendar.WEDNESDAY:
-                    currentDayString = "thursday";
-
-                case Calendar.THURSDAY:
-                    currentDayString = "friday";
-
-                case Calendar.FRIDAY:
-                    currentDayString = "saturday";
-
-                case Calendar.SATURDAY:
-                    currentDayString = "sunday";
-            }
+//            switch (currentDayInt) {
+//                case Calendar.SUNDAY:
+//                    currentDayString = "monday";
+//
+//                case Calendar.MONDAY:
+//                    currentDayString = "tuesday";
+//
+//                case Calendar.TUESDAY:
+//                    currentDayString = "wednesday";
+//
+//                case Calendar.WEDNESDAY:
+//                    currentDayString = "thursday";
+//
+//                case Calendar.THURSDAY:
+//                    currentDayString = "friday";
+//
+//                case Calendar.FRIDAY:
+//                    currentDayString = "saturday";
+//
+//                case Calendar.SATURDAY:
+//                    currentDayString = "sunday";
+//            }
 
         }
 

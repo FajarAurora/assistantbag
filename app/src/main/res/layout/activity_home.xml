@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:id="@+id/drawer_layout">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -24,18 +27,15 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@android:color/white"
-                app:tabIndicatorColor="@color/colorPrimary"
-                app:tabIndicatorHeight="2dp"
-                android:elevation="16dp"
-
-                />
-
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="bottom|center"
+                    android:background="@android:color/white"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    app:tabIndicatorHeight="2dp"
+                    android:elevation="16dp" />
 
         </LinearLayout>
 
@@ -53,6 +53,17 @@
         <!--app:layout_anchorGravity="bottom|right|end" />-->
     </android.support.design.widget.CoordinatorLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_speech_recognition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            app:backgroundTint="@color/white"
+            android:src="@drawable/ic_mic_round" />
+
+    </FrameLayout>
 
     <include layout="@layout/snippet_drawer" />
 
