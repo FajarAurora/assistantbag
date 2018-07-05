@@ -63,7 +63,7 @@
     <string name="tag_deleted">Tag berhasil dihapus</string>
 
     <!--Builder-->
-    <string name="update_tag">Ubah nama tag</string>
+    <string name="update_tag">Ubah data benda</string>
 
     <!--Error-->
     <string name="error_empty_field">Kolom tidak boleh kosong</string>
@@ -88,4 +88,31 @@
 
     <!--Speech Recognition-->
     <string name="speech_recognition">Masukkan Perintah Suara</string>
+
+    <!--Info-->
+    <string name="about_us_message">
+        Proyek Akhir Skripsi: Assistant Bag.
+        \nDikembangkan oleh Aprilia Audina dan Wizdan Mohammad Gibran Shodri.
+        \n\nPoliteknik Negeri Jakarta
+    </string>
+    <string name="wifi_troubleshoot">Assistant Bag Tidak Bekerja?</string>
+    <string name="wifi_message">
+        Assistant Bag terhubung otomatis dengan jaringan terakhir yang ia pakai saat dinyalakan.
+        Ketika jaringan tersebut tidak tersedia, maka Assistant Bag akan berubah menjadi hotspot.
+    </string>
+
+    <string name="wifi_step_intro">Ikuti langkah berikut:</string>
+
+    <string name="wifi_step_1">
+        Restart alat Assistant Bag, buka pengaturan WiFi pada Android
+        lalu hubungkan Android dengan ID alat (tertera pada box alat).
+    </string>
+    <string name="wifi_step_2">
+        Setalah terhubung, Android akan memunculkan halaman manajemen WiFi.
+        Pada halaman tersebut, atur Assistant Bag untuk terhubung dengan jaringan WiFi yang tersedia.
+    </string>
+
+    <string name="wifi_step_3">
+        Kini jaringan baru tersimpan oleh Assistant Bag dan akan digunakan untuk kedepannya.
+    </string>
 </resources>

@@ -1,9 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.wizdanapril.assistantbag.activities.NetworkActivity">
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.wizdanapril.assistantbag.activities.NetworkActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/android:actionBarSize"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <customfonts.TextView_Lato_Medium
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="96dp"
+            android:text="@string/wifi_troubleshoot"
+            android:textSize="22sp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_wifi"
+            android:layout_width="136dp"
+            android:layout_height="136dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/ic_wifi_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_question_mark"-->
+            <!--android:layout_width="48dp"-->
+            <!--android:layout_height="48dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:src="@drawable/ic_question_mark"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/iv_wifi"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.637"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/iv_wifi"-->
+            <!--app:layout_constraintVertical_bias="0.0" />-->
+
+        <customfonts.TextView_Lato_Medium
+            android:id="@+id/tv_wifi_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/wifi_message"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_wifi" />
+
+        <customfonts.TextView_Lato_Medium
+            android:id="@+id/tv_wifi_step_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/wifi_step_intro"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wifi_message" />
+
+        <customfonts.TextView_Lato_Medium
+            android:id="@+id/tv_wifi_step_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/wifi_step_1"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wifi_step_intro" />
+
+        <ImageView
+            android:id="@+id/iv_ss_1"
+            android:layout_width="256dp"
+            android:layout_height="435dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ss_wifi_setting"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="142dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wifi_step_1" />
+
+        <customfonts.TextView_Lato_Medium
+            android:id="@+id/tv_wifi_step_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/wifi_step_2"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_ss_1" />
+
+        <ImageView
+            android:id="@+id/iv_ss_2"
+            android:layout_width="256dp"
+            android:layout_height="435dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ss_wifi_manager_menu"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="142dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wifi_step_2" />
+
+        <ImageView
+            android:id="@+id/iv_ss_3"
+            android:layout_width="256dp"
+            android:layout_height="435dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ss_wifi_manager_select"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="142dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_ss_2" />
+
+        <customfonts.TextView_Lato_Medium
+            android:id="@+id/tv_wifi_step_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/wifi_step_3"
+            android:textAlignment="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_ss_3" />
+
+        <ImageView
+            android:id="@+id/iv_ss_4"
+            android:layout_width="256dp"
+            android:layout_height="435dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ss_wifi_manager_end"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="142dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wifi_step_3" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

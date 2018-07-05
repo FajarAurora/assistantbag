@@ -135,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
         menuCopyright.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, CopyrightActivity.class));
+                startActivity(new Intent(HomeActivity.this, AboutusActivity.class));
                 drawer.closeDrawer(navigationView);
             }
         });

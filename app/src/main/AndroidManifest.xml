@@ -71,7 +71,7 @@
             android:value=".activities.HomeActivity" />
         </activity>
 
-        <activity android:name=".activities.CopyrightActivity"
+        <activity android:name=".activities.AboutusActivity"
             android:label="@string/unselected"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.HomeActivity">

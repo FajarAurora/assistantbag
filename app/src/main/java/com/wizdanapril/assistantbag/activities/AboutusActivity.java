@@ -9,15 +9,15 @@ import android.view.MenuItem;
 
 import com.wizdanapril.assistantbag.R;
 
-public class NetworkActivity extends AppCompatActivity {
+public class AboutusActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_network);
+        setContentView(R.layout.activity_aboutus);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(R.string.wifi);
+        toolbar.setTitle(R.string.about_us);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

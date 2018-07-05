@@ -40,17 +40,14 @@
         </LinearLayout>
 
         <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="60dp"-->
-        <!--android:layout_marginRight="16dp"-->
-        <!--android:src="@drawable/add"-->
-        @android:color/white
-        <!--app:backgroundTint="@color/colorPrimary"-->
-        <!--app:fabSize="normal"-->
-        <!--app:layout_anchor="@id/view_pager"-->
-        <!--app:layout_anchorGravity="bottom|right|end" />-->
+            <!--android:id="@+id/fab_speech_recognition"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom|center"-->
+            <!--android:layout_marginBottom="4dp"-->
+            <!--android:clickable="true"-->
+            <!--app:backgroundTint="@color/white"-->
+            <!--android:src="@drawable/ic_mic_round" />-->
     </android.support.design.widget.CoordinatorLayout>
 
         <android.support.design.widget.FloatingActionButton
