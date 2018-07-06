@@ -18,6 +18,15 @@
     <string name="edit">Ubah</string>
     <string name="update">Perbarui</string>
     <string name="delete">Hapus</string>
+    <string name="clear_active">Bersihkan Tag Aktif</string>
+    <string name="clear_active_question">Anda yakin ingin mereset ulang tag aktif?</string>
+    <string name="clear_history">Bersihkan Riwayat</string>
+    <string name="clear_history_question">
+        Anda yakin ingin menghapus seluruh data riwayat?
+        \nOperasi ini tidak dapat diurungkan.
+    </string>
+    <string name="positive_button">Ya</string>
+    <string name="negative_button">Tidak</string>
 
     <!--Crescento-->
     <string name="crescento_header">Terdapat</string>
@@ -39,7 +48,8 @@
 
     <!--No Data-->
     <string name="no_data">Data kosong \nLakukan pemindaian untuk menambah data.</string>
-    <string name="no_schedule">Tidak ada jadwal</string>
+    <string name="no_history">Riwayat saat ini kosong.</string>
+    <string name="no_schedule">Tidak ada jadwal untuk hari ini.</string>
     <string name="plus">+</string>
     <string name="no_name">(no-name)</string>
 
@@ -115,4 +125,5 @@
     <string name="wifi_step_3">
         Kini jaringan baru tersimpan oleh Assistant Bag dan akan digunakan untuk kedepannya.
     </string>
+
 </resources>

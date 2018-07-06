@@ -71,24 +71,27 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
 
         }
 
-        switch (history.status) {
-            case "in":
-                holder.statusIn.setVisibility(View.VISIBLE);
-                holder.statusOut.setVisibility(View.INVISIBLE);
-                holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_light_green));
-                holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_light_green));
-                holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_green));
-                break;
-            case "out":
-                holder.statusIn.setVisibility(View.INVISIBLE);
-                holder.statusOut.setVisibility(View.VISIBLE);
-                holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_red));
-                holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_red));
-                holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_red));
-                break;
-            default:
-                break;
+        if (history.status != null) {
+            switch (history.status) {
+                case "in":
+                    holder.statusIn.setVisibility(View.VISIBLE);
+                    holder.statusOut.setVisibility(View.INVISIBLE);
+                    holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_light_green));
+                    holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_light_green));
+                    holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_green));
+                    break;
+                case "out":
+                    holder.statusIn.setVisibility(View.INVISIBLE);
+                    holder.statusOut.setVisibility(View.VISIBLE);
+                    holder.tagTime.setTextColor(context.getResources().getColor(R.color.material_red));
+                    holder.tagDate.setTextColor(context.getResources().getColor(R.color.material_red));
+                    holder.dotTime.setBackground(context.getResources().getDrawable(R.drawable.circle_red));
+                    break;
+                default:
+                    break;
+            }
         }
+
     }
 
     @Override

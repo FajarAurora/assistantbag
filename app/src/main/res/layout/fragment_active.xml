@@ -57,6 +57,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_vertical_ellipsis"
                         android:layout_width="0dp"
                         android:layout_height="24sp"
                         android:layout_margin="@dimen/activity_horizontal_margin"

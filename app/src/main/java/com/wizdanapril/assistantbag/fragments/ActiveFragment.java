@@ -1,8 +1,10 @@
 package com.wizdanapril.assistantbag.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,14 +12,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +34,7 @@ import com.wizdanapril.assistantbag.activities.CatalogActivity;
 import com.wizdanapril.assistantbag.activities.HomeActivity;
 import com.wizdanapril.assistantbag.activities.ScheduleActivity;
 import com.wizdanapril.assistantbag.adapters.ActiveAdapter;
+import com.wizdanapril.assistantbag.adapters.HistoryAdapter;
 import com.wizdanapril.assistantbag.models.Constant;
 import com.wizdanapril.assistantbag.utils.CustomViewPager;
 import com.wizdanapril.assistantbag.models.Catalog;
@@ -53,10 +60,11 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
     private RecyclerView recyclerView;
     private List<Catalog> activeList;
     private ActiveAdapter activeAdapter;
+    private HistoryAdapter historyAdapter;
 
     private TextView emptyText, tagCounter;
 
-    private DatabaseReference catalogReference;
+    private DatabaseReference catalogReference, historyReference;
     public ActiveFragment() {
         // Required empty public constructor
     }
@@ -78,6 +86,8 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
         String deviceId = preferences.getString("deviceId", "error");
         catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
                 .child(userAccount).child(deviceId).child(Constant.CATALOG);
+        historyReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.HISTORY);
 
 
         setHasOptionsMenu(true);
@@ -122,6 +132,34 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
 //
 //        getActivity().invalidateOptionsMenu();
 
+
+        // Popup menu
+        final TextView verticalEllipsisIcon = (TextView) view.findViewById(R.id.tv_vertical_ellipsis);
+        verticalEllipsisIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(getActivity(), verticalEllipsisIcon);
+                popupMenu.inflate(R.menu.option_menu_active);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.menu_item_clear_active:
+                                showClearActiveDialog();
+                                break;
+                            case R.id.menu_item_clear_history:
+                                showClearHistoryDialog();
+                                break;
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
+
         // Setting the crescento button address
         TextView toCatalog = (TextView) view.findViewById(R.id.to_catalog);
         toCatalog.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +193,10 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
         recyclerView.setLayoutManager(layoutManager);
 
         activeAdapter = new ActiveAdapter(activeList);
+        historyAdapter = new HistoryAdapter(null, getActivity(), catalogReference);
         recyclerView.setAdapter(activeAdapter);
 
+        checkIfEmpty();
         return view;
     }
 
@@ -181,8 +221,11 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
                     Catalog catalog = children.getValue(Catalog.class);
                     if (catalog != null && Objects.equals(catalog.status, "in")) {
                         activeList.add(catalog);
-                        activeAdapter.notifyDataSetChanged();
                         tagCounter.setText(String.valueOf(activeList.size()));
+                        activeAdapter.notifyDataSetChanged();
+                        checkIfEmpty();
+                    } else {
+                        activeAdapter.notifyDataSetChanged();
                         checkIfEmpty();
                     }
                 }
@@ -194,12 +237,11 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
 
             }
 
-//                CATALOG.addChildEventListener(new ChildEventListener() {
+//                catalogReference.addChildEventListener(new ChildEventListener() {
 //            @Override
 //            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 //                Catalog catalog = dataSnapshot.getValue(Catalog.class);
-//                String in = "in";
-//                if (catalog != null && catalog.status.equals(in)) {
+//                if (catalog != null && Objects.equals(catalog.status, "in")) {
 //                    activeList.add(catalog);
 //                    activeAdapter.notifyDataSetChanged();
 //                    tagCounter.setText(String.valueOf(activeList.size()));
@@ -211,7 +253,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
 //            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 //                Catalog catalog = dataSnapshot.getValue(Catalog.class);
 //                int index = getItemIndex(catalog);
-//                if (catalog != null && catalog.status.equals("in")) {
+//                if (catalog != null && Objects.equals(catalog.status, "in")) {
 //                    activeList.set(index, catalog);
 //                    activeAdapter.notifyItemChanged(index);
 //                    tagCounter.setText(String.valueOf(activeList.size()));
@@ -222,7 +264,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
 //            public void onChildRemoved(DataSnapshot dataSnapshot) {
 //                Catalog catalog = dataSnapshot.getValue(Catalog.class);
 //                int index = getItemIndex(catalog);
-//                if (catalog != null && catalog.status.equals("in")) {
+//                if (catalog != null && Objects.equals(catalog.status, "in")) {
 //                    activeList.remove(index);
 //                    activeAdapter.notifyItemRemoved(index);
 //                    tagCounter.setText(String.valueOf(activeList.size()));
@@ -243,28 +285,94 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
         });
     }
 
-//    private int getItemIndex(Catalog catalog) {
-//
-//        int index = -1;
-//
-//        for (int i = 0; i < activeList.size(); i++) {
-//            if (activeList.get(i).id.equals(catalog.id)) {
-//                index = i;
-//                break;
-//            }
-//        }
-//
-//        return index;
-//    }
+    private int getItemIndex(Catalog catalog) {
+
+        int index = -1;
+
+        for (int i = 0; i < activeList.size(); i++) {
+            if (activeList.get(i).id.equals(catalog.id)) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
 
     private void checkIfEmpty() {
         if (activeList.size() == 0) {
             recyclerView.setVisibility(View.INVISIBLE);
             emptyText.setVisibility(View.VISIBLE);
+            tagCounter.setText("0");
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             emptyText.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void showClearActiveDialog() throws Resources.NotFoundException {
+        new AlertDialog.Builder(getContext())
+                .setTitle(getResources().getString(R.string.clear_active))
+                .setMessage(
+                        getResources().getString(R.string.clear_active_question))
+//                .setIcon(
+//                        getResources().getDrawable(
+//                                android.R.drawable.ic_dialog_alert))
+                .setPositiveButton(
+                        getResources().getString(R.string.positive_button),
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                clearActive();
+                            }
+                        })
+                .setNegativeButton(
+                        getResources().getString(R.string.negative_button), null)
+                .show();
+    }
+
+    private void showClearHistoryDialog() throws Resources.NotFoundException {
+        new AlertDialog.Builder(getContext())
+                .setTitle(getResources().getString(R.string.clear_history))
+                .setMessage(
+                        getResources().getString(R.string.clear_history_question))
+//                .setIcon(
+//                        getResources().getDrawable(
+//                                android.R.drawable.ic_dialog_alert))
+                .setPositiveButton(
+                        getResources().getString(R.string.positive_button),
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                historyReference.removeValue();
+                                historyAdapter.notifyDataSetChanged();
+                            }
+                        })
+                .setNegativeButton(
+                        getResources().getString(R.string.negative_button), null)
+                .show();
+    }
+
+    private void clearActive() {
+        catalogReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String out = "out";
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    children.child("status").getRef().setValue(out);
+                    activeList.clear();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

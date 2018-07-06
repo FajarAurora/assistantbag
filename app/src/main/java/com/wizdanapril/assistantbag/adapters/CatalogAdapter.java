@@ -44,7 +44,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
             public void onClick(View view) {
             // Display option menu
             PopupMenu popupMenu = new PopupMenu(context, holder.itemOption);
-            popupMenu.inflate(R.menu.option_menu);
+            popupMenu.inflate(R.menu.option_menu_catalog);
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {

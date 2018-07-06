@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,8 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         emptyText = (TextView) view.findViewById(R.id.tv_no_data);
+        emptyText.setText(R.string.no_history);
+        emptyText.setGravity(Gravity.CENTER);
 
         historyList = new ArrayList<>();
 
@@ -88,6 +91,7 @@ public class HistoryFragment extends Fragment {
         historyAdapter = new HistoryAdapter(historyList, getActivity(), catalogReference);
         recyclerView.setAdapter(historyAdapter);
 
+        checkIfEmpty();
         updateList();
 
         return view;
@@ -120,10 +124,19 @@ public class HistoryFragment extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                History catalog = dataSnapshot.getValue(History.class);
+                int index = getItemIndex(catalog);
+                historyList.set(index, catalog);
+                historyAdapter.notifyItemChanged(index);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                History catalog = dataSnapshot.getValue(History.class);
+                int index = getItemIndex(catalog);
+                historyList.remove(index);
+                historyAdapter.notifyItemChanged(index);
+                checkIfEmpty();
             }
 
             @Override
@@ -136,6 +149,20 @@ public class HistoryFragment extends Fragment {
 
             }
         });
+    }
+
+    private int getItemIndex(History history) {
+
+        int index = -1;
+
+        for (int i = 0; i < historyList.size(); i++) {
+            if (historyList.get(i).reference.equals(history.reference)) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
     }
 
     private void checkIfEmpty() {
