@@ -16,6 +16,7 @@ public class Constant {
     public static final String USER = "user";
     public static final String DEVICE = "device";
     public static final String DATA = "data";
+    public static final String CURRENT_USER = "currentUser";
     public static final String CATALOG = "catalog";
     public static final String HISTORY = "history";
     public static final String SCHEDULE = "schedule";

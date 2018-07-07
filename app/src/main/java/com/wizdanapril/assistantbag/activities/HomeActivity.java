@@ -46,8 +46,6 @@ public class HomeActivity extends AppCompatActivity {
     public DrawerLayout drawer;
     public NavigationView navigationView;
 
-    private DatabaseReference userReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         // Shared preferences
         SharedPreferences preferences = this.getSharedPreferences("LoggedAccount", MODE_PRIVATE);
         final String userAccount = preferences.getString("userAccount", "error");
+        final String deviceId = preferences.getString("deviceId", "error");
         String userEmail = preferences.getString("userEmail", "error");
 
         // Setting up drawer menu items
@@ -89,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayout menuCopyright = (LinearLayout) findViewById(R.id.drawer_menu_copyright);
         LinearLayout menuLogout = (LinearLayout) findViewById(R.id.drawer_menu_logout);
 
-//        userReference = FirebaseDatabase.getInstance().getReference(Constant.USER);
+
 //        if (!userAccount.equals("error")) {
 //            userReference.child(userAccount).addValueEventListener(new ValueEventListener() {
 //                @Override
@@ -144,6 +143,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
+                FirebaseDatabase.getInstance().getReference(Constant.DEVICE).child(deviceId)
+                        .child(Constant.CURRENT_USER).setValue("none");
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 drawer.closeDrawer(navigationView);
                 finish();
