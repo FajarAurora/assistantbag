@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         String userEmail = preferences.getString("userEmail", "error");
 
         // Setting up drawer menu items
-        final TextView menuUserName = (TextView) findViewById(R.id.drawer_user_name);
+//        final TextView menuUserName = (TextView) findViewById(R.id.drawer_app_name);
         TextView menuUserEmail = (TextView) findViewById(R.id.drawer_user_email);
         LinearLayout menuSchedule = (LinearLayout) findViewById(R.id.drawer_menu_schedule);
         LinearLayout menuCatalog = (LinearLayout) findViewById(R.id.drawer_menu_catalog);
@@ -89,21 +89,21 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayout menuCopyright = (LinearLayout) findViewById(R.id.drawer_menu_copyright);
         LinearLayout menuLogout = (LinearLayout) findViewById(R.id.drawer_menu_logout);
 
-        userReference = FirebaseDatabase.getInstance().getReference(Constant.USER);
-        if (!userAccount.equals("error")) {
-            userReference.child(userAccount).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
-                        menuUserName.setText(user.name);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
+//        userReference = FirebaseDatabase.getInstance().getReference(Constant.USER);
+//        if (!userAccount.equals("error")) {
+//            userReference.child(userAccount).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                        User user = dataSnapshot.getValue(User.class);
+//                        menuUserName.setText(user.name);
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
 
         menuUserEmail.setText(userEmail);
         menuSchedule.setOnClickListener(new View.OnClickListener() {

@@ -9,8 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize">
+        android:layout_height="wrap_content">
 
     <customfonts.TextView_Lato_Medium
         android:layout_width="wrap_content"
@@ -91,7 +90,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/button_style"
+        android:background="@drawable/button_style_blue"
         android:text="@string/login"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,17 +99,15 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="136dp"
-        android:layout_height="136dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:src="@drawable/logo_backpack"
         app:layout_constraintBottom_toTopOf="@+id/et_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/logo_backpack" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

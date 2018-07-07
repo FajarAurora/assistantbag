@@ -47,5 +47,6 @@
     <color name="material_light_green">#9ccc65</color>
     <color name="custom_blue">#0589e1</color>
     <color name="custom_gray">#495C67</color>
+    <color name="indigo">#303F9F</color>
 
 </resources>
