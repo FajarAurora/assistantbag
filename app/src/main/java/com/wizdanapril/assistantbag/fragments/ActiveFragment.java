@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.CatalogActivity;
 import com.wizdanapril.assistantbag.activities.HomeActivity;
@@ -63,6 +65,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
     private TextView emptyText, tagCounter;
 
     private DatabaseReference catalogReference, historyReference;
+
     public ActiveFragment() {
         // Required empty public constructor
     }
@@ -86,7 +89,6 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
                 .child(userAccount).child(deviceId).child(Constant.CATALOG);
         historyReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
                 .child(userAccount).child(deviceId).child(Constant.HISTORY);
-
 
         setHasOptionsMenu(true);
         updateList();
@@ -190,7 +192,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        activeAdapter = new ActiveAdapter(activeList);
+        activeAdapter = new ActiveAdapter(activeList, getActivity());
         historyAdapter = new HistoryAdapter(null, getActivity(), catalogReference);
         recyclerView.setAdapter(activeAdapter);
 

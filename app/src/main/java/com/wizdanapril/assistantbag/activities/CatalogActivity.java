@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.activities;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -35,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -42,6 +44,7 @@ import com.squareup.picasso.Picasso;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.adapters.CatalogAdapter;
 import com.wizdanapril.assistantbag.models.Catalog;
+import com.wizdanapril.assistantbag.models.Temp;
 import com.wizdanapril.assistantbag.utils.Constant;
 
 import java.io.ByteArrayOutputStream;
@@ -60,7 +63,7 @@ public class CatalogActivity extends AppCompatActivity {
     private List<Catalog> catalogList;
     private CatalogAdapter catalogAdapter;
 
-    private DatabaseReference catalogReference;
+    private DatabaseReference catalogReference, tempReference;
     private StorageReference tagImageReference;
 
     private TextView emptyText;
@@ -107,7 +110,9 @@ public class CatalogActivity extends AppCompatActivity {
         String deviceId = preferences.getString("deviceId", "error");
         catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
                 .child(userAccount).child(deviceId).child(Constant.CATALOG);
-        tagImageReference = FirebaseStorage.getInstance().getReference().child("images").child("tag");
+        tempReference = FirebaseDatabase.getInstance().getReference(Constant.TEMP);
+        tagImageReference = FirebaseStorage.getInstance().getReference()
+                .child(Constant.IMAGES).child(Constant.TAG);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle(R.string.catalog);
@@ -200,7 +205,7 @@ public class CatalogActivity extends AppCompatActivity {
         showUpdateDialog(catalog, tagImage);
     }
 
-    private void showUpdateDialog(final Catalog catalog, Drawable tagImage) {
+    private void showUpdateDialog(final Catalog catalog, final Drawable tagImage) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -214,8 +219,27 @@ public class CatalogActivity extends AppCompatActivity {
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.bt_update);
 
         dialogBuilder.setTitle(getResources().getString(R.string.update_tag));
-        imageInput.setImageDrawable(tagImage);
         nameInput.setText(catalog.name);
+
+        tempReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(Constant.TEMP_IMAGE_URI)) {
+                    Temp temp = dataSnapshot.getValue(Temp.class);
+                    if (temp != null) {
+                        Uri tempImageUri = Uri.parse(temp.tempImageUri);
+                        Picasso.with(dialogView.getContext()).load(tempImageUri).into(imageInput);
+                    }
+                } else {
+                    imageInput.setImageDrawable(tagImage);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
@@ -242,8 +266,17 @@ public class CatalogActivity extends AppCompatActivity {
 
                 updateTag(catalog, newName, bitmapData);
                 alertDialog.dismiss();
+
             }
         });
+
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                tempReference.removeValue();
+            }
+        });
+
     }
 
     private void updateTag(final Catalog catalog, String newName, byte[] data) {
@@ -269,6 +302,7 @@ public class CatalogActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri imageUri = taskSnapshot.getDownloadUrl();
                     catalogReference.child(catalog.id).child("imageUri").setValue(imageUri.toString());
+                    tempReference.removeValue();
                     Log.d("IMAGE_URI", imageUri.toString() );
                 }
             });
@@ -305,6 +339,7 @@ public class CatalogActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 //        overridePendingTransition(R.anim.exit_current, R.anim.exit_new);
+
     }
 
     @Override
@@ -337,13 +372,23 @@ public class CatalogActivity extends AppCompatActivity {
                 Bitmap photoBitmap = BitmapFactory.decodeFile(photoPath);
                 resizedPhotoBitmap = Bitmap.createScaledBitmap(photoBitmap, 128, 128, true);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                resizedPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
+                resizedPhotoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 bitmapData = baos.toByteArray();
 
-//                LayoutInflater inflater = getLayoutInflater();
-//                final View dialogView = inflater.inflate(R.layout.dialog_update, null);
-//                ImageView tagImage = (ImageView) dialogView.findViewById(R.id.iv_item);
-//                tagImage.setImageBitmap(resizedPhotoBitmap);
+                UploadTask uploadTask = tagImageReference.child(Constant.TEMP).putBytes(bitmapData);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri imageUri = taskSnapshot.getDownloadUrl();
+                        tempReference.child(Constant.TEMP_IMAGE_URI).setValue(imageUri.toString());
+                        Log.d("IMAGE_URI_TEMP", imageUri.toString() );
+                    }
+                });
 
             }
             @Override
@@ -371,4 +416,5 @@ public class CatalogActivity extends AppCompatActivity {
         EasyImage.clearConfiguration(this);
         super.onDestroy();
     }
+
 }

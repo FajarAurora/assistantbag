@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.models.Catalog;
 import com.wizdanapril.assistantbag.models.History;
@@ -58,6 +59,8 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
                         Catalog catalog = dataSnapshot.getValue(Catalog.class);
                         String name = catalog != null ? catalog.name : null;
                         holder.tagName.setText(name);
+                        Picasso.with(context).load(catalog.imageUri).into(holder.tagImage);
+
                     } else {
                         holder.tagName.setText(context.getResources().getString(R.string.no_name));
                     }
@@ -105,6 +108,7 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
         TextView tagId;
         TextView tagDate;
         TextView tagTime;
+        ImageView tagImage;
         ImageView statusIn;
         ImageView statusOut;
         View dotTime;
@@ -116,6 +120,7 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
             tagId = (TextView) itemView.findViewById(R.id.tv_id);
             tagDate = (TextView) itemView.findViewById(R.id.tv_date);
             tagTime = (TextView) itemView.findViewById(R.id.tv_time);
+            tagImage = (ImageView) itemView.findViewById(R.id.iv_item);
             statusIn = (ImageView) itemView.findViewById(R.id.iv_status_in);
             statusOut = (ImageView) itemView.findViewById(R.id.iv_status_out);
             dotTime = itemView.findViewById(R.id.vi_dot);

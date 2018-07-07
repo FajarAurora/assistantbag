@@ -19,5 +19,9 @@ public class Constant {
     public static final String CATALOG = "catalog";
     public static final String HISTORY = "history";
     public static final String SCHEDULE = "schedule";
+    public static final String IMAGES = "images";
+    public static final String TAG = "tag";
+    public static final String TEMP = "temp";
+    public static final String TEMP_IMAGE_URI = "tempImageUri";
 
 }

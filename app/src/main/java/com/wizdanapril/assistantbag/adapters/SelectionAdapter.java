@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.SelectionActivity;
 import com.wizdanapril.assistantbag.models.Catalog;
@@ -48,6 +50,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
 
         holder.tagName.setText(catalog.name);
         holder.tagId.setText(catalog.id);
+        Picasso.with(selectionActivity).load(catalog.imageUri).into(holder.tagImage);
 
 //        if (!selectionActivity.isInActionMode) {
 //            holder.itemCheckBox.setVisibility(View.INVISIBLE);
@@ -66,6 +69,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
 
         TextView tagName;
         TextView tagId;
+        ImageView tagImage;
         CheckBox itemCheckBox;
         CardView itemCardView;
 
@@ -74,6 +78,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
 
             tagName = (TextView) itemView.findViewById(R.id.tv_name);
             tagId = (TextView) itemView.findViewById(R.id.tv_id);
+            tagImage = (ImageView) itemView.findViewById(R.id.iv_item);
             itemCheckBox = (CheckBox) itemView.findViewById(R.id.check_box);
             itemCardView = (CardView) itemView.findViewById(R.id.card_view);
 

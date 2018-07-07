@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.ScheduleActivity;
 import com.wizdanapril.assistantbag.fragments.ScheduleFragment;
@@ -69,6 +71,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                     String name = catalog.name;
                     holder.tagName.setText(name);
 //                holder.tagName.setText(holder.currentDayString);
+                    Picasso.with(scheduleActivity).load(catalog.imageUri).into(holder.tagImage);
 
                     if (day.equals(holder.currentDayString) && catalog.status.equals("in")) {
                         holder.itemCardView.setBackgroundColor(scheduleActivity
@@ -107,6 +110,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         TextView tagName;
         TextView tagId;
+        ImageView tagImage;
         CheckBox itemCheckBox;
         CardView itemCardView;
 
@@ -120,6 +124,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
             tagName = (TextView) itemView.findViewById(R.id.tv_name);
             tagId = (TextView) itemView.findViewById(R.id.tv_id);
+            tagImage = (ImageView) itemView.findViewById(R.id.iv_item);
             itemCheckBox = (CheckBox) itemView.findViewById(R.id.check_box);
             itemCardView = (CardView) itemView.findViewById(R.id.card_view);
 
