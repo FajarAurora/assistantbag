@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.fragments.ActiveFragment;
 import com.wizdanapril.assistantbag.fragments.HistoryFragment;
-import com.wizdanapril.assistantbag.models.Constant;
+import com.wizdanapril.assistantbag.utils.Constant;
 import com.wizdanapril.assistantbag.models.User;
 import com.wizdanapril.assistantbag.utils.CustomViewPager;
 

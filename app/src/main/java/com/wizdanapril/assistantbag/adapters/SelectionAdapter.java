@@ -9,11 +9,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.SelectionActivity;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.models.Constant;
 
 import java.util.List;
 

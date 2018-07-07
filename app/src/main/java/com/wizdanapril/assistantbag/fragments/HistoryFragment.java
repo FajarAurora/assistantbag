@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.adapters.HistoryAdapter;
 import com.wizdanapril.assistantbag.models.History;
-import com.wizdanapril.assistantbag.models.Constant;
+import com.wizdanapril.assistantbag.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.Collections;

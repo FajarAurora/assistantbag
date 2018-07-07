@@ -27,6 +27,7 @@
     </string>
     <string name="positive_button">Ya</string>
     <string name="negative_button">Tidak</string>
+    <string name="pick_source">Pilih dengan</string>
 
     <!--Crescento-->
     <string name="crescento_header">Terdapat</string>
@@ -125,5 +126,6 @@
     <string name="wifi_step_3">
         Kini jaringan baru tersimpan oleh Assistant Bag dan akan digunakan untuk kedepannya.
     </string>
+
 
 </resources>

@@ -15,7 +15,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +33,7 @@ import com.wizdanapril.assistantbag.activities.HomeActivity;
 import com.wizdanapril.assistantbag.activities.ScheduleActivity;
 import com.wizdanapril.assistantbag.adapters.ActiveAdapter;
 import com.wizdanapril.assistantbag.adapters.HistoryAdapter;
-import com.wizdanapril.assistantbag.models.Constant;
+import com.wizdanapril.assistantbag.utils.Constant;
 import com.wizdanapril.assistantbag.utils.CustomViewPager;
 import com.wizdanapril.assistantbag.models.Catalog;
 

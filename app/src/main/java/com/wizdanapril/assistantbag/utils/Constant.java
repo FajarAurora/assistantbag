@@ -1,4 +1,4 @@
-package com.wizdanapril.assistantbag.models;
+package com.wizdanapril.assistantbag.utils;
 
 
 import android.content.Context;

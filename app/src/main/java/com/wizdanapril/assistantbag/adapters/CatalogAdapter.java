@@ -1,14 +1,17 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.CatalogActivity;
 import com.wizdanapril.assistantbag.models.Catalog;
@@ -36,9 +39,13 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Catalog catalog = catalogList.get(position);
-
         holder.tagName.setText(catalog.name);
         holder.tagId.setText(catalog.id);
+        if (catalog.imageUri != null) {
+            Uri imageUri = Uri.parse(catalog.imageUri);
+            Picasso.with(catalogActivity).load(imageUri).into(holder.tagImage);
+        }
+
         holder.itemOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +57,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
                 public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_item_edit:
-                        catalogActivity.changeTag(holder.getAdapterPosition());
+                        catalogActivity.changeTag(holder.getAdapterPosition(), holder.tagImage.getDrawable());
                         break;
                     case R.id.menu_item_delete:
                         catalogActivity.removeTag(holder.getAdapterPosition());
@@ -77,6 +84,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
         TextView tagName;
         TextView tagId;
         TextView itemOption;
+        ImageView tagImage;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -84,6 +92,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
             tagName = (TextView) itemView.findViewById(R.id.tv_name);
             tagId = (TextView) itemView.findViewById(R.id.tv_id);
             itemOption = (TextView) itemView.findViewById(R.id.tv_digit_option);
+            tagImage = (ImageView) itemView.findViewById(R.id.iv_item);
         }
     }
 }

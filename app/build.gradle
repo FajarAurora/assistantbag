@@ -23,6 +23,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.firebase:firebase-database:10.2.1'
     implementation 'com.google.firebase:firebase-auth:10.2.1'
+    implementation 'com.google.firebase:firebase-storage:10.2.1'
     implementation 'com.android.support:appcompat-v7:25.1.0'
     implementation 'com.android.support:support-v4:25.1.0'
     implementation 'com.android.support:design:25.1.0'
@@ -30,6 +31,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.github.developer-shivam:crescento:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.github.tajchert:nammu:1.1.1'
+    implementation 'com.github.jkwiecien:EasyImage:2.0.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

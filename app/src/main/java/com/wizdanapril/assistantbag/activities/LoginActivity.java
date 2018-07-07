@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wizdanapril.assistantbag.R;
-import com.wizdanapril.assistantbag.models.Constant;
+import com.wizdanapril.assistantbag.utils.Constant;
 
 public class LoginActivity extends AppCompatActivity {
 

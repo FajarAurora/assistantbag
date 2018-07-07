@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.models.Catalog;
-import com.wizdanapril.assistantbag.models.Constant;
+import com.wizdanapril.assistantbag.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.Locale;

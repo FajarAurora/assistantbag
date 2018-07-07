@@ -25,7 +25,7 @@ import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.ScheduleActivity;
 import com.wizdanapril.assistantbag.activities.SelectionActivity;
 import com.wizdanapril.assistantbag.adapters.ScheduleAdapter;
-import com.wizdanapril.assistantbag.models.Constant;
+import com.wizdanapril.assistantbag.utils.Constant;
 import com.wizdanapril.assistantbag.models.Schedule;
 import com.wizdanapril.assistantbag.utils.LinkedMap;
 
