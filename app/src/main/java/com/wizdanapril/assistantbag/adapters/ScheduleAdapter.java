@@ -2,6 +2,7 @@ package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -71,8 +72,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                     String name = catalog.name;
                     holder.tagName.setText(name);
 //                holder.tagName.setText(holder.currentDayString);
-                    Picasso.with(scheduleActivity).load(catalog.imageUri).into(holder.tagImage);
-
+                    if (catalog.imageUri != null) {
+                        Uri imageUri = Uri.parse(catalog.imageUri);
+                        Picasso.with(scheduleActivity).load(imageUri).into(holder.tagImage);
+                    }
                     if (day.equals(holder.currentDayString) && catalog.status.equals("in")) {
                         holder.itemCardView.setBackgroundColor(scheduleActivity
                                 .getResources().getColor(R.color.material_light_green));

@@ -63,17 +63,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.HomeActivity" />
         </activity>
-
-        <activity android:name=".activities.NetworkActivity"
-            android:label="@string/unselected"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activities.HomeActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".activities.HomeActivity" />
-        </activity>
-
-        <activity android:name=".activities.AboutusActivity"
+        <activity
+            android:name=".activities.NetworkActivity"
             android:label="@string/unselected"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.HomeActivity">
@@ -81,8 +72,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.HomeActivity" />
         </activity>
-
-        <activity android:name=".activities.SpeechRecognitionActivity"
+        <activity
+            android:name=".activities.AboutusActivity"
+            android:label="@string/unselected"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SpeechRecognitionActivity"
             android:label="@string/speech_recognition"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.HomeActivity">

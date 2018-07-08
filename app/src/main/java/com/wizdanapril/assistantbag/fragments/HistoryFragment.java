@@ -124,18 +124,12 @@ public class HistoryFragment extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                History catalog = dataSnapshot.getValue(History.class);
-                int index = getItemIndex(catalog);
-                historyList.set(index, catalog);
-                historyAdapter.notifyItemChanged(index);
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                History catalog = dataSnapshot.getValue(History.class);
-                int index = getItemIndex(catalog);
-                historyList.remove(index);
-                historyAdapter.notifyItemChanged(index);
+                historyList.clear();
                 checkIfEmpty();
             }
 

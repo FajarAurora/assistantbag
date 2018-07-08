@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,10 @@ public class ActiveAdapter extends  RecyclerView.Adapter<ActiveAdapter.ViewHolde
         holder.tagDate.setText(active.lastReadDate);
         holder.tagTime.setText(active.lastReadTime);
 
-        Picasso.with(context).load(active.imageUri).into(holder.tagImage);
+        if (active.imageUri != null) {
+            Uri imageUri = Uri.parse(active.imageUri);
+            Picasso.with(context).load(imageUri).into(holder.tagImage);
+        }
     }
 
     @Override

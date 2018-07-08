@@ -1,6 +1,7 @@
 package com.wizdanapril.assistantbag.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,12 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.ViewHol
                         Catalog catalog = dataSnapshot.getValue(Catalog.class);
                         String name = catalog != null ? catalog.name : null;
                         holder.tagName.setText(name);
-                        Picasso.with(context).load(catalog.imageUri).into(holder.tagImage);
+
+                        if (catalog.imageUri != null) {
+                            Uri imageUri = Uri.parse(catalog.imageUri);
+                            Picasso.with(context).load(imageUri).into(holder.tagImage);
+                        }
+
 
                     } else {
                         holder.tagName.setText(context.getResources().getString(R.string.no_name));

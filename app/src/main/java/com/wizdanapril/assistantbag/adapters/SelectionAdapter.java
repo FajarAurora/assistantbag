@@ -1,5 +1,6 @@
 package com.wizdanapril.assistantbag.adapters;
 
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,7 +51,11 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
 
         holder.tagName.setText(catalog.name);
         holder.tagId.setText(catalog.id);
-        Picasso.with(selectionActivity).load(catalog.imageUri).into(holder.tagImage);
+        if (catalog.imageUri != null) {
+            Uri imageUri = Uri.parse(catalog.imageUri);
+            Picasso.with(selectionActivity).load(imageUri).into(holder.tagImage);
+        }
+
 
 //        if (!selectionActivity.isInActionMode) {
 //            holder.itemCheckBox.setVisibility(View.INVISIBLE);
