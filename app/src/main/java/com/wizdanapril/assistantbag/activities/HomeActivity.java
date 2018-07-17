@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -13,12 +15,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,9 +33,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.fragments.ActiveFragment;
 import com.wizdanapril.assistantbag.fragments.HistoryFragment;
+import com.wizdanapril.assistantbag.models.Catalog;
 import com.wizdanapril.assistantbag.utils.Constant;
 import com.wizdanapril.assistantbag.models.User;
 import com.wizdanapril.assistantbag.utils.CustomViewPager;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -45,6 +53,11 @@ public class HomeActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     public DrawerLayout drawer;
     public NavigationView navigationView;
+
+    private DatabaseReference catalogReference;
+    private TextToSpeech t1;
+    private StringBuilder stringBuilder;
+    private String dayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +91,20 @@ public class HomeActivity extends AppCompatActivity {
         final String userAccount = preferences.getString("userAccount", "error");
         final String deviceId = preferences.getString("deviceId", "error");
         String userEmail = preferences.getString("userEmail", "error");
+        catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.CATALOG);
 
+        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    t1.setLanguage(new Locale("id","ID"));
+                }
+            }
+        });
+
+        stringBuilder = new StringBuilder();
+        
         // Setting up drawer menu items
 //        final TextView menuUserName = (TextView) findViewById(R.id.drawer_app_name);
         TextView menuUserEmail = (TextView) findViewById(R.id.drawer_user_email);
@@ -176,7 +202,16 @@ public class HomeActivity extends AppCompatActivity {
         speechButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, SpeechRecognitionActivity.class));
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, 10);
+                } else {
+                    Toast.makeText(HomeActivity.this, "Maaf, perangkat Anda tidak mendukung speech recognition", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -188,6 +223,259 @@ public class HomeActivity extends AppCompatActivity {
 //        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 //        drawer.setDrawerLockMode(lockMode);
 //    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 10:
+                if (resultCode == RESULT_OK && data != null) {
+                    final ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    if (result.get(0).equals("Senin")) {
+                        dayName = "monday";
+                        catalogReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                    Catalog catalog = children.getValue(Catalog.class);
+                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                                        stringBuilder.append(catalog.name);
+                                        stringBuilder.append(". ");
+
+                                    }
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+//
+
+                        String spoke = stringBuilder.toString();
+                        Log.d("BUILDER", stringBuilder.toString());
+
+                            t1.speak(spoke, TextToSpeech.QUEUE_FLUSH, null);
+                            stringBuilder.setLength(0);
+//                        stringBuilder.setLength(0);
+//                        startActivity(new Intent(HomeActivity.this,
+//                                ScheduleMondayActivity.class));
+
+                    } else if (result.get(0).equals("Selasa")) {
+                        dayName = "tuesday";
+                        catalogReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                    Catalog catalog = children.getValue(Catalog.class);
+                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                                        stringBuilder.append(catalog.name);
+                                        stringBuilder.append(". ");
+
+                                    }
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+//
+                        
+
+
+                        Log.d("BUILDER", stringBuilder.toString());
+                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        stringBuilder.setLength(0);
+                       // startActivity(new Intent(HomeActivity.this,
+//                                ScheduleTuesdayActivity.class));
+                    } else if (result.get(0).equals("Rabu")) {
+                        dayName = "wednesday";
+                        catalogReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                    Catalog catalog = children.getValue(Catalog.class);
+                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                                        stringBuilder.append(catalog.name);
+                                        stringBuilder.append(". ");
+
+                                    }
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+//
+                        
+
+
+                        Log.d("BUILDER", stringBuilder.toString());
+
+                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        stringBuilder.setLength(0);
+//                        startActivity(new Intent(HomeActivity.this,
+//                                ScheduleWednesdayActivity.class));
+                    } else if (result.get(0).equals("Kamis")) {
+                        dayName = "thursday";
+                        catalogReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                    Catalog catalog = children.getValue(Catalog.class);
+                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                                        stringBuilder.append(catalog.name);
+                                        stringBuilder.append(". ");
+
+                                    }
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+//
+                        
+
+
+                        Log.d("BUILDER", stringBuilder.toString());
+
+                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        stringBuilder.setLength(0);
+//                        startActivity(new Intent(HomeActivity.this,
+//                                ScheduleThursdayActivity.class));
+                    } else if (result.get(0).equals("Jumat")) {
+                        dayName = "friday";
+                        catalogReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                    Catalog catalog = children.getValue(Catalog.class);
+                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                                        stringBuilder.append(catalog.name);
+                                        stringBuilder.append(". ");
+
+                                    }
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+//
+                        
+
+//                        startActivity(new Intent(HomeActivity.this,
+//                                ScheduleFridayActivity.class));
+                        Log.d("BUILDER", stringBuilder.toString());
+
+                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+//                        stringBuilder.setLength(0);
+                    } else if (result.get(0).equals("Sabtu")) {
+                        dayName = "saturday";
+                        catalogReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                    Catalog catalog = children.getValue(Catalog.class);
+                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                                        stringBuilder.append(catalog.name);
+                                        stringBuilder.append(". ");
+
+                                    }
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+//
+                        
+//
+//                        startActivity(new Intent(HomeActivity.this,
+//                                ScheduleSaturdayActivity.class));
+                        Log.d("BUILDER", stringBuilder.toString());
+
+                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        stringBuilder.setLength(0);
+                    } else if (result.get(0).equals("Minggu")) {
+                        dayName = "sunday";
+                        catalogReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                    Catalog catalog = children.getValue(Catalog.class);
+                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                                        stringBuilder.append(catalog.name);
+                                        stringBuilder.append(". ");
+
+                                    }
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+//
+                        
+
+//                        startActivity(new Intent(HomeActivity.this,
+//                                ScheduleSundayActivity.class));
+                        Log.d("BUILDER", stringBuilder.toString());
+
+                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                        stringBuilder.setLength(0);
+                    } else {
+                        t1.speak("Maaf, bukan nama hari", TextToSpeech.QUEUE_FLUSH, null);
+                        Toast.makeText(this, "Not a day", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+        }
+
+    }
 
     @Override
     public void onPostCreate(Bundle savedInstanceState) {

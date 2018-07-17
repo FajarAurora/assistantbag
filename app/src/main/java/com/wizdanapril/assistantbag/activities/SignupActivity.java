@@ -29,6 +29,8 @@ public class SignupActivity extends AppCompatActivity {
     private Button signupButton;
     private ProgressBar progressBar;
 
+    String account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,10 @@ public class SignupActivity extends AppCompatActivity {
                 final String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
                 final String deviceId = inputDevice.getText().toString();
-                final String account = email.substring(0, email.indexOf("@"));
+                if (!email.equals("") && email.contains("@")) {
+                     account = email.substring(0, email.indexOf("@"));
+                }
+
 
 
                 if (TextUtils.isEmpty(email)) {
@@ -78,8 +83,6 @@ public class SignupActivity extends AppCompatActivity {
                                 new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignupActivity.this,
-                                        getString(R.string.success_signup), Toast.LENGTH_SHORT).show();
 
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
@@ -91,6 +94,9 @@ public class SignupActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                     signupButton.setVisibility(View.VISIBLE);
                                 } else {
+                                    Toast.makeText(SignupActivity.this,
+                                            getString(R.string.success_signup), Toast.LENGTH_SHORT).show();
+
                                     // Login and set deviceId to database
                                     DatabaseReference deviceReference = FirebaseDatabase.getInstance().getReference(Constant.DEVICE)
                                             .child(deviceId);

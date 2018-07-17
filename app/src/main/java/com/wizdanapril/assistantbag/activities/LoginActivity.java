@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private ProgressBar progressBar;
 
+    private String account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +54,9 @@ public class LoginActivity extends AppCompatActivity {
                 final String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
                 final String deviceId = inputDevice.getText().toString();
-                final String account = email.substring(0, email.indexOf("@"));
-
+                if (!email.equals ("") && email.contains("@")) {
+                    account = email.substring(0, email.indexOf("@"));
+                }
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_empty_email),
                             Toast.LENGTH_SHORT).show();

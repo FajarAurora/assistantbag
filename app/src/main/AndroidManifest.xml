@@ -90,6 +90,80 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.HomeActivity" />
         </activity>
+        <activity
+            android:name=".activities.SpeechRecognitionActivity_Backup"
+            android:label="@string/speech_recognition"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SpeechRecognitionActivity_Re"
+            android:label="@string/speech_recognition"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity android:name=".activities.ScheduleMondayActivity"
+            android:label="@string/schedule"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity android:name=".activities.ScheduleTuesdayActivity"
+            android:label="@string/schedule"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity android:name=".activities.ScheduleWednesdayActivity"
+            android:label="@string/schedule"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity android:name=".activities.ScheduleThursdayActivity"
+            android:label="@string/schedule"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity android:name=".activities.ScheduleFridayActivity"
+            android:label="@string/schedule"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity android:name=".activities.ScheduleSaturdayActivity"
+            android:label="@string/schedule"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity android:name=".activities.ScheduleSundayActivity"
+            android:label="@string/schedule"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

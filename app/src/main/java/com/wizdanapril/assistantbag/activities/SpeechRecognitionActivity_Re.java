@@ -23,8 +23,7 @@ import com.wizdanapril.assistantbag.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-public class SpeechRecognitionActivity extends AppCompatActivity {
+public class SpeechRecognitionActivity_Re extends AppCompatActivity {
 
     private TextToSpeech t1;
     private TextView txvResult;
@@ -59,6 +58,10 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
         catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
                 .child(userAccount).child(deviceId).child(Constant.CATALOG);
 
+
+    }
+
+    public void getSpeechInput(View view) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
@@ -68,10 +71,6 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Maaf, perangkat Anda tidak mendukung speech recognition", Toast.LENGTH_SHORT).show();
         }
-
-    }
-
-    public void getSpeechInput(View view) {
 
 
     }
@@ -111,10 +110,12 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
 //
                         txvResult.setText(stringBuilder.toString());
                         toBeSpoken = stringBuilder.toString();
-                        startActivity(new Intent(SpeechRecognitionActivity.this,
-                                ScheduleMondayActivity.class));
+
+                        Log.d("BUILDER", stringBuilder.toString());
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
                         stringBuilder.setLength(0);
+                        startActivity(new Intent(SpeechRecognitionActivity_Re.this,
+                                ScheduleMondayActivity.class));
                     } else if (result.get(0).equals("Selasa")) {
                         dayName = "tuesday";
                         catalogReference.addValueEventListener(new ValueEventListener() {
@@ -142,10 +143,13 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
 //
                         txvResult.setText(stringBuilder.toString());
                         toBeSpoken = stringBuilder.toString();
-                        startActivity(new Intent(SpeechRecognitionActivity.this,
-                                ScheduleTuesdayActivity.class));
+
+
+                        Log.d("BUILDER", stringBuilder.toString());
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
                         stringBuilder.setLength(0);
+                        startActivity(new Intent(SpeechRecognitionActivity_Re.this,
+                                ScheduleTuesdayActivity.class));
                     } else if (result.get(0).equals("Rabu")) {
                         dayName = "wednesday";
                         catalogReference.addValueEventListener(new ValueEventListener() {
@@ -173,10 +177,14 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
 //
                         txvResult.setText(stringBuilder.toString());
                         toBeSpoken = stringBuilder.toString();
-                        startActivity(new Intent(SpeechRecognitionActivity.this,
-                                ScheduleWednesdayActivity.class));
+
+
+                        Log.d("BUILDER", stringBuilder.toString());
+
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
                         stringBuilder.setLength(0);
+                        startActivity(new Intent(SpeechRecognitionActivity_Re.this,
+                                ScheduleWednesdayActivity.class));
                     } else if (result.get(0).equals("Kamis")) {
                         dayName = "thursday";
                         catalogReference.addValueEventListener(new ValueEventListener() {
@@ -204,10 +212,14 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
 //
                         txvResult.setText(stringBuilder.toString());
                         toBeSpoken = stringBuilder.toString();
-                        startActivity(new Intent(SpeechRecognitionActivity.this,
-                                ScheduleThursdayActivity.class));
+
+
+                        Log.d("BUILDER", stringBuilder.toString());
+
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
                         stringBuilder.setLength(0);
+                        startActivity(new Intent(SpeechRecognitionActivity_Re.this,
+                                ScheduleThursdayActivity.class));
                     } else if (result.get(0).equals("Jumat")) {
                         dayName = "friday";
                         catalogReference.addValueEventListener(new ValueEventListener() {
@@ -235,10 +247,13 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
 //
                         txvResult.setText(stringBuilder.toString());
                         toBeSpoken = stringBuilder.toString();
-                        startActivity(new Intent(SpeechRecognitionActivity.this,
-                                ScheduleFridayActivity.class));
+
+//                        startActivity(new Intent(SpeechRecognitionActivity_Re.this,
+//                                ScheduleFridayActivity.class));
+                        Log.d("BUILDER", stringBuilder.toString());
+
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
-                        stringBuilder.setLength(0);
+//                        stringBuilder.setLength(0);
                     } else if (result.get(0).equals("Sabtu")) {
                         dayName = "saturday";
                         catalogReference.addValueEventListener(new ValueEventListener() {
@@ -266,8 +281,11 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
 //
                         txvResult.setText(stringBuilder.toString());
                         toBeSpoken = stringBuilder.toString();
-                        startActivity(new Intent(SpeechRecognitionActivity.this,
+//
+                        startActivity(new Intent(SpeechRecognitionActivity_Re.this,
                                 ScheduleSaturdayActivity.class));
+                        Log.d("BUILDER", stringBuilder.toString());
+
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
                         stringBuilder.setLength(0);
                     } else if (result.get(0).equals("Minggu")) {
@@ -297,8 +315,11 @@ public class SpeechRecognitionActivity extends AppCompatActivity {
 //
                         txvResult.setText(stringBuilder.toString());
                         toBeSpoken = stringBuilder.toString();
-                        startActivity(new Intent(SpeechRecognitionActivity.this,
+
+                        startActivity(new Intent(SpeechRecognitionActivity_Re.this,
                                 ScheduleSundayActivity.class));
+                        Log.d("BUILDER", stringBuilder.toString());
+
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
                         stringBuilder.setLength(0);
                     } else {

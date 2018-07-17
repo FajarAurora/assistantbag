@@ -27,12 +27,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.wizdanapril.assistantbag.R;
 import com.wizdanapril.assistantbag.activities.CatalogActivity;
 import com.wizdanapril.assistantbag.activities.HomeActivity;
-import com.wizdanapril.assistantbag.activities.ScheduleActivity;
+import com.wizdanapril.assistantbag.activities.ScheduleMondayActivity;
 import com.wizdanapril.assistantbag.adapters.ActiveAdapter;
 import com.wizdanapril.assistantbag.adapters.HistoryAdapter;
 import com.wizdanapril.assistantbag.utils.Constant;
@@ -174,7 +172,7 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
         toSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+                Intent intent = new Intent(getActivity(), ScheduleMondayActivity.class);
                 startActivity(intent);
             }
         });

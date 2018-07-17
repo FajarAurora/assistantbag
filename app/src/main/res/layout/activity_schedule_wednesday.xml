@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/fragment_schedule">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/android:actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:paddingBottom="4dp"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:id="@+id/sv_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_monday"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/mon"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/bt_tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/tue"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/bt_wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/wed"
+                android:background="@color/white"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/bt_thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/thu"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/bt_friday"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/fri"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/bt_saturday"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/sat"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/bt_sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/sun"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <customfonts.TextView_Lato_Medium
+            android:id="@+id/tv_add_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/plus"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentRight="true"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/iv_delete_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+
+
+    <include layout="@layout/snippet_recycler" />
+
+</LinearLayout>

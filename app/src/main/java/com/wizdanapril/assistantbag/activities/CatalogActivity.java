@@ -302,12 +302,13 @@ public class CatalogActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri imageUri = taskSnapshot.getDownloadUrl();
                     catalogReference.child(catalog.id).child("imageUri").setValue(imageUri.toString());
-                    tempReference.removeValue();
+
                     Log.d("IMAGE_URI", imageUri.toString() );
                 }
             });
         }
 
+        tempReference.removeValue();
         Toast.makeText(CatalogActivity.this, getResources().getString(R.string.tag_updated),
                 Toast.LENGTH_LONG).show();
     }
