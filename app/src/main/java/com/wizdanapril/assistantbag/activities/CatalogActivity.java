@@ -46,11 +46,13 @@ import com.wizdanapril.assistantbag.adapters.CatalogAdapter;
 import com.wizdanapril.assistantbag.models.Catalog;
 import com.wizdanapril.assistantbag.models.Temp;
 import com.wizdanapril.assistantbag.utils.Constant;
+import com.wizdanapril.assistantbag.utils.LinkedMap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
@@ -63,7 +65,9 @@ public class CatalogActivity extends AppCompatActivity {
     private List<Catalog> catalogList;
     private CatalogAdapter catalogAdapter;
 
-    private DatabaseReference catalogReference, tempReference;
+    private LinkedMap<String, Boolean> scheduleList;
+
+    private DatabaseReference catalogReference, scheduleReference, tempReference;
     private StorageReference tagImageReference;
 
     private TextView emptyText;
@@ -110,6 +114,8 @@ public class CatalogActivity extends AppCompatActivity {
         String deviceId = preferences.getString("deviceId", "error");
         catalogReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
                 .child(userAccount).child(deviceId).child(Constant.CATALOG);
+        scheduleReference = FirebaseDatabase.getInstance().getReference(Constant.DATA)
+                .child(userAccount).child(deviceId).child(Constant.SCHEDULE);
         tempReference = FirebaseDatabase.getInstance().getReference(Constant.TEMP);
         tagImageReference = FirebaseStorage.getInstance().getReference()
                 .child(Constant.IMAGES).child(Constant.TAG);
@@ -124,6 +130,7 @@ public class CatalogActivity extends AppCompatActivity {
         emptyText = (TextView) findViewById(R.id.tv_no_data);
 
         catalogList = new ArrayList<>();
+        scheduleList = new LinkedMap<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_tag);
         recyclerView.setHasFixedSize(true);
@@ -196,7 +203,17 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     public void removeTag(int position) {
+        Catalog catalog = catalogList.get(position);
         catalogReference.child(catalogList.get(position).id).removeValue();
+        for (Map.Entry<String, Boolean> entry : catalog.schedule.entrySet()) {
+            String key = entry.getKey();
+            scheduleList.put(key, true);
+        }
+
+        for (int i = 0; i < scheduleList.size(); i++) {
+            scheduleReference.child(scheduleList.getKey(i)).child("member").child(catalogList.get(position).id).removeValue();
+        }
+
         Toast.makeText(this, getResources().getString(R.string.tag_deleted), Toast.LENGTH_LONG).show();
     }
 
