@@ -224,6 +224,36 @@ public class HomeActivity extends AppCompatActivity {
 //        drawer.setDrawerLockMode(lockMode);
 //    }
 
+    private void speechAction() {
+        catalogReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                stringBuilder.append(getResources().getString(R.string.speech_initial));
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    Catalog catalog = children.getValue(Catalog.class);
+                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+//                                        nameList.add(catalog.name);
+                        stringBuilder.append(catalog.name);
+                        stringBuilder.append(". ");
+                    }
+                }
+
+                t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                stringBuilder.setLength(0);
+
+                startActivity(new Intent(HomeActivity.this,
+                        ScheduleMondayActivity.class));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -232,244 +262,54 @@ public class HomeActivity extends AppCompatActivity {
             case 10:
                 if (resultCode == RESULT_OK && data != null) {
                     final ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    if (result.get(0).equals("Senin")) {
-                        dayName = "monday";
-                        catalogReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                                    Catalog catalog = children.getValue(Catalog.class);
-                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
-//                                        nameList.add(catalog.name);
-                                        stringBuilder.append(catalog.name);
-                                        stringBuilder.append(". ");
-
-                                    }
-                                }
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-//
-
-                        String spoke = stringBuilder.toString();
-                        Log.d("BUILDER", stringBuilder.toString());
-
-                            t1.speak(spoke, TextToSpeech.QUEUE_FLUSH, null);
-                            stringBuilder.setLength(0);
-//                        stringBuilder.setLength(0);
-//                        startActivity(new Intent(HomeActivity.this,
-//                                ScheduleMondayActivity.class));
-
-                    } else if (result.get(0).equals("Selasa")) {
-                        dayName = "tuesday";
-                        catalogReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                                    Catalog catalog = children.getValue(Catalog.class);
-                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
-//                                        nameList.add(catalog.name);
-                                        stringBuilder.append(catalog.name);
-                                        stringBuilder.append(". ");
-
-                                    }
-                                }
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-//
-                        
-
-
-                        Log.d("BUILDER", stringBuilder.toString());
-                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
-                        stringBuilder.setLength(0);
-                       // startActivity(new Intent(HomeActivity.this,
-//                                ScheduleTuesdayActivity.class));
-                    } else if (result.get(0).equals("Rabu")) {
-                        dayName = "wednesday";
-                        catalogReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                                    Catalog catalog = children.getValue(Catalog.class);
-                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
-//                                        nameList.add(catalog.name);
-                                        stringBuilder.append(catalog.name);
-                                        stringBuilder.append(". ");
-
-                                    }
-                                }
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-//
-                        
-
-
-                        Log.d("BUILDER", stringBuilder.toString());
-
-                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
-                        stringBuilder.setLength(0);
-//                        startActivity(new Intent(HomeActivity.this,
-//                                ScheduleWednesdayActivity.class));
-                    } else if (result.get(0).equals("Kamis")) {
-                        dayName = "thursday";
-                        catalogReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                                    Catalog catalog = children.getValue(Catalog.class);
-                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
-//                                        nameList.add(catalog.name);
-                                        stringBuilder.append(catalog.name);
-                                        stringBuilder.append(". ");
-
-                                    }
-                                }
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-//
-                        
-
-
-                        Log.d("BUILDER", stringBuilder.toString());
-
-                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
-                        stringBuilder.setLength(0);
-//                        startActivity(new Intent(HomeActivity.this,
-//                                ScheduleThursdayActivity.class));
-                    } else if (result.get(0).equals("Jumat")) {
-                        dayName = "friday";
-                        catalogReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                                    Catalog catalog = children.getValue(Catalog.class);
-                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
-//                                        nameList.add(catalog.name);
-                                        stringBuilder.append(catalog.name);
-                                        stringBuilder.append(". ");
-
-                                    }
-                                }
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-//
-                        
-
-//                        startActivity(new Intent(HomeActivity.this,
-//                                ScheduleFridayActivity.class));
-                        Log.d("BUILDER", stringBuilder.toString());
-
-                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
-//                        stringBuilder.setLength(0);
-                    } else if (result.get(0).equals("Sabtu")) {
-                        dayName = "saturday";
-                        catalogReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                                    Catalog catalog = children.getValue(Catalog.class);
-                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
-//                                        nameList.add(catalog.name);
-                                        stringBuilder.append(catalog.name);
-                                        stringBuilder.append(". ");
-
-                                    }
-                                }
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-//
-                        
-//
-//                        startActivity(new Intent(HomeActivity.this,
-//                                ScheduleSaturdayActivity.class));
-                        Log.d("BUILDER", stringBuilder.toString());
-
-                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
-                        stringBuilder.setLength(0);
-                    } else if (result.get(0).equals("Minggu")) {
-                        dayName = "sunday";
-                        catalogReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot children : dataSnapshot.getChildren()) {
-                                    Catalog catalog = children.getValue(Catalog.class);
-                                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
-//                                        nameList.add(catalog.name);
-                                        stringBuilder.append(catalog.name);
-                                        stringBuilder.append(". ");
-
-                                    }
-                                }
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-//
-                        
-
-//                        startActivity(new Intent(HomeActivity.this,
-//                                ScheduleSundayActivity.class));
-                        Log.d("BUILDER", stringBuilder.toString());
-
-                        t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
-                        stringBuilder.setLength(0);
-                    } else {
-                        t1.speak("Maaf, bukan nama hari", TextToSpeech.QUEUE_FLUSH, null);
-                        Toast.makeText(this, "Not a day", Toast.LENGTH_SHORT).show();
+                    switch (result.get(0)) {
+                        case "Senin":
+                            dayName = "monday";
+                            speechAction();
+                            startActivity(new Intent(HomeActivity.this,
+                                    ScheduleMondayActivity.class));
+                            break;
+                        case "Selasa":
+                            dayName = "tuesday";
+                            speechAction();
+                            startActivity(new Intent(HomeActivity.this,
+                                ScheduleTuesdayActivity.class));
+                            break;
+                        case "Rabu":
+                            dayName = "wednesday";
+                            speechAction();
+                            startActivity(new Intent(HomeActivity.this,
+                                ScheduleWednesdayActivity.class));
+                            break;
+                        case "Kamis":
+                            dayName = "thurday"; //a typo
+                            speechAction();
+                            startActivity(new Intent(HomeActivity.this,
+                                ScheduleThursdayActivity.class));
+                            break;
+                        case "Jumat":
+                            dayName = "friday";
+                            speechAction();
+                            startActivity(new Intent(HomeActivity.this,
+                                ScheduleFridayActivity.class));
+                            break;
+                        case "Sabtu":
+                            dayName = "saturday";
+                            speechAction();
+                            startActivity(new Intent(HomeActivity.this,
+                                ScheduleSaturdayActivity.class));
+                            break;
+                        case "Minggu":
+                            dayName = "sunday";
+                            String activityName = "ScheduleTuesdayActivity";
+                            speechAction();
+                            startActivity(new Intent(HomeActivity.this,
+                                ScheduleSundayActivity.class));
+                            break;
+                        default:
+                            t1.speak("Maaf, bukan nama hari", TextToSpeech.QUEUE_FLUSH, null);
+                            Toast.makeText(this, "Bukan nama hari", Toast.LENGTH_SHORT).show();
+                            break;
                     }
                 }
                 break;

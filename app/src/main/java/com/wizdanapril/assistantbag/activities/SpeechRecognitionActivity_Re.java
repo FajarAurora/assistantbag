@@ -113,6 +113,7 @@ public class SpeechRecognitionActivity_Re extends AppCompatActivity {
 
                         Log.d("BUILDER", stringBuilder.toString());
                         t1.speak(toBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+
                         stringBuilder.setLength(0);
                         startActivity(new Intent(SpeechRecognitionActivity_Re.this,
                                 ScheduleMondayActivity.class));

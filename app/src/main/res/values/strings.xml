@@ -100,6 +100,7 @@
 
     <!--Speech Recognition-->
     <string name="speech_recognition">Masukkan Perintah Suara</string>
+    <string name="speech_initial">Yang harus dibawa adalah</string>
 
     <!--Info-->
     <string name="about_us_message">
@@ -127,6 +128,5 @@
     <string name="wifi_step_3">
         Kini jaringan baru tersimpan oleh Assistant Bag dan akan digunakan untuk kedepannya.
     </string>
-
 
 </resources>
