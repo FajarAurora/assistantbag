@@ -15,16 +15,6 @@
         android:minHeight="?attr/android:actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <!--<ImageView-->
-            <!--android:id="@+id/iv_add"-->
-            <!--android:layout_width="@dimen/image_medium"-->
-            <!--android:layout_height="@dimen/image_medium"-->
-            <!--android:layout_gravity="end|top"-->
-            <!--android:layout_margin="@dimen/spacing_small"-->
-            <!--android:contentDescription="@string/add_schedule"-->
-            <!--android:onClick="addSchedule"-->
-            <!--app:srcCompat="@drawable/ic_add_white_24dp" />-->
-
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout

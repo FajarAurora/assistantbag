@@ -225,24 +225,28 @@ public class HomeActivity extends AppCompatActivity {
 //    }
 
     private void speechAction() {
-        catalogReference.addValueEventListener(new ValueEventListener() {
+        catalogReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 stringBuilder.append(getResources().getString(R.string.speech_initial));
+                int i = 0;
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Catalog catalog = children.getValue(Catalog.class);
                     if (catalog != null && catalog.schedule.containsKey(dayName)) {
 //                                        nameList.add(catalog.name);
                         stringBuilder.append(catalog.name);
                         stringBuilder.append(". ");
+                        i++;
                     }
                 }
 
                 t1.speak(stringBuilder.toString(), TextToSpeech.QUEUE_FLUSH, null);
+
+                Log.d("BUILDER_", stringBuilder.toString());
                 stringBuilder.setLength(0);
 
-                startActivity(new Intent(HomeActivity.this,
-                        ScheduleMondayActivity.class));
+//                startActivity(new Intent(HomeActivity.this,
+//                        ScheduleMondayActivity.class));
 
             }
 
@@ -252,6 +256,7 @@ public class HomeActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
     @Override

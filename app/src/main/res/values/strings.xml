@@ -100,7 +100,7 @@
 
     <!--Speech Recognition-->
     <string name="speech_recognition">Masukkan Perintah Suara</string>
-    <string name="speech_initial">Yang harus dibawa adalah</string>
+    <string name="speech_initial">Yang harus dibawa adalah </string>
 
     <!--Info-->
     <string name="about_us_message">
