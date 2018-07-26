@@ -232,7 +232,7 @@ public class HomeActivity extends AppCompatActivity {
                 int i = 0;
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Catalog catalog = children.getValue(Catalog.class);
-                    if (catalog != null && catalog.schedule.containsKey(dayName)) {
+                    if (catalog.schedule != null && catalog.schedule.containsKey(dayName)) {
 //                                        nameList.add(catalog.name);
                         stringBuilder.append(catalog.name);
                         stringBuilder.append(". ");
