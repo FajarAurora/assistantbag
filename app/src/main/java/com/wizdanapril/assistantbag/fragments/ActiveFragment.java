@@ -1,14 +1,18 @@
 package com.wizdanapril.assistantbag.fragments;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,8 +43,12 @@ import com.wizdanapril.assistantbag.utils.Constant;
 import com.wizdanapril.assistantbag.utils.CustomViewPager;
 import com.wizdanapril.assistantbag.models.Catalog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -48,6 +56,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class ActiveFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ARG_PAGE = "ARG_PAGE";
+    public static final int NOTIFICATION_ID = 1;
 
     private View view;
     private HomeActivity homeActivity;
@@ -213,6 +222,13 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
     }
 
     private void updateList() {
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        int currentDayInt = calendar.get(Calendar.DAY_OF_WEEK);
+        final String currentDayString = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime())).toLowerCase();
+
+        final Uri notifSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         catalogReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -220,6 +236,21 @@ public class ActiveFragment extends Fragment implements NavigationView.OnNavigat
                 for (DataSnapshot children : dataSnapshot.getChildren()) {
                     Catalog catalog = children.getValue(Catalog.class);
                     if (catalog != null && Objects.equals(catalog.status, "in")) {
+                        if (!catalog.schedule.containsKey(currentDayString)) {
+                            NotificationCompat.Builder builder = (NotificationCompat.Builder)
+                                    new NotificationCompat.Builder(getActivity())
+                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setContentTitle("Barang tak termasuk jadwal")
+                                    .setAutoCancel(true)
+                                    .setContentText(catalog.name + " tak termasuk jadwal hari ini")
+                                    .setSound(notifSound);
+
+                            NotificationManager notificationManager = (NotificationManager)
+                                    homeActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+                            if (notificationManager != null) {
+                                notificationManager.notify(NOTIFICATION_ID, builder.build());
+                            }
+                        }
                         activeList.add(catalog);
                         tagCounter.setText(String.valueOf(activeList.size()));
                         activeAdapter.notifyDataSetChanged();
